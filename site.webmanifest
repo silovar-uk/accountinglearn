@@ -1,0 +1,12 @@
+{
+  "name": "Accounting Quest",
+  "short_name": "AQ",
+  "description": "実践簿記と経営分析を、短い経営ケースで学ぶWebアプリ",
+  "start_url": "./#home",
+  "display": "standalone",
+  "background_color": "#f5f7f3",
+  "theme_color": "#102f2a",
+  "icons": [
+    {"src": "./favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}
+  ]
+}
