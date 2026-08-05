@@ -5,13 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#102f2a" />
   <meta name="color-scheme" content="light" />
-  <meta name="description" content="実践簿記と経営分析を、短い経営ケースで楽しく学ぶWebアプリ" />
+  <meta name="description" content="短い経営ケースとスマホ計算補助で、簿記を経営判断につなげる学習アプリ" />
   <meta name="application-name" content="Accounting Quest" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Accounting Quest" />
+  <meta property="og:title" content="Accounting Quest｜実践簿記・経営分析" />
+  <meta property="og:description" content="物語、財務資料、計算、提案を通して、数字を経営の言葉へ変える学習アプリ" />
+  <meta property="og:type" content="website" />
   <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="./favicon.svg" />
+  <link rel="icon" href="./icon-192.png" sizes="192x192" type="image/png" />
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png" sizes="180x180" />
   <link rel="manifest" href="./site.webmanifest" />
   <title>Accounting Quest｜実践簿記・経営分析</title>
   <link rel="stylesheet" href="./app.css" />
@@ -19,8 +23,13 @@
   <link rel="stylesheet" href="./ui-pages.css" />
   <link rel="stylesheet" href="./ui-case.css" />
   <link rel="stylesheet" href="./ui-responsive.css" />
+    <link rel="stylesheet" href="./deep-1.css" />
+  <link rel="stylesheet" href="./deep-2.css" />
+  <link rel="stylesheet" href="./deep-3.css" />
+  <link rel="stylesheet" href="./deep-4.css" />
 </head>
 <body>
+  <noscript>Accounting Questを利用するにはJavaScriptを有効にしてください。</noscript>
   <div id="app" class="app-shell" aria-live="polite"></div>
   <script src="./app-core.js"></script>
   <script src="./app-lessons.js"></script>
@@ -34,5 +43,13 @@
   <script src="./ui-case-steps.js"></script>
   <script src="./ui-case-nav.js"></script>
   <script src="./ui-live.js"></script>
+  <script src="./deep-state.js"></script>
+  <script src="./deep-calculator.js"></script>
+  <script src="./deep-ui-shell.js"></script>
+  <script src="./deep-ui-home-case.js"></script>
+  <script src="./deep-ui-steps.js"></script>
+  <script src="./deep-ui-records-layers.js"></script>
+  <script src="./deep-actions.js"></script>
+  <script src="./pwa.js"></script>
 </body>
 </html>
