@@ -6,7 +6,7 @@
   "scripts": {
     "serve": "python3 -m http.server 4173",
     "validate": "node scripts/validate-case.mjs",
-    "check:js": "node --check app-core.js && node --check app-lessons.js && node --check app-actions.js && node --check ui-polish.js",
+    "check:js": "node --check app-core.js && node --check app-lessons.js && node --check app-actions.js && node --check ui-foundation.js && node --check ui-home.js && node --check ui-cases.js && node --check ui-learning.js && node --check ui-records.js && node --check ui-case-view.js && node --check ui-case-steps.js && node --check ui-case-nav.js",
     "test": "node --test",
     "check": "npm run check:js && npm run validate && npm test"
   }
