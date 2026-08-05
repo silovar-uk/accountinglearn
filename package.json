@@ -1,11 +1,13 @@
 {
   "name": "accountinglearn",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "scripts": {
     "serve": "python3 -m http.server 4173",
     "validate": "node scripts/validate-case.mjs",
-    "test": "node --test"
+    "check:js": "node --check app-core.js && node --check app-lessons.js && node --check app-actions.js && node --check ui-polish.js",
+    "test": "node --test",
+    "check": "npm run check:js && npm run validate && npm test"
   }
 }
