@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "cases": [
+    {
+      "id": "case-001",
+      "path": "./data/cases/case-001-black-profit-no-cash.json",
+      "status": "published"
+    }
+  ]
+}
