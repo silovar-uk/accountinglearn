@@ -7,7 +7,7 @@ const read = (path) => fs.readFile(new URL(path, root), "utf8");
 
 test("index loads UI polish and brand assets", async () => {
   const html = await read("index.html");
-  for (const reference of ["favicon.svg", "site.webmanifest", "ui-base.css", "ui-pages.css", "ui-case.css", "ui-responsive.css", "ui-foundation.js", "ui-home.js", "ui-library.js", "ui-case.js", "apple-touch-icon"]) {
+  for (const reference of ["favicon.svg", "site.webmanifest", "ui-base.css", "ui-pages.css", "ui-case.css", "ui-responsive.css", "ui-foundation.js", "ui-home.js", "ui-cases.js", "ui-learning.js", "ui-records.js", "ui-case-view.js", "ui-case-steps.js", "ui-case-nav.js", "apple-touch-icon"]) {
     assert.match(html, new RegExp(reference.replace(".", "\\.")));
   }
 });
