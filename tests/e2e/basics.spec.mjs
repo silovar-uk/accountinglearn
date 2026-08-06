@@ -5,6 +5,7 @@ const browserErrors = new WeakMap();
 
 async function completeOnboarding(page) {
   await page.goto("/");
+  await page.locator("#app > *").first().waitFor();
   const dialog = page.getByRole("dialog", { name: "どのくらい補助を使いますか？" });
   if (await dialog.isVisible().catch(() => false)) {
     await dialog.getByRole("button", { name: /標準/ }).click();

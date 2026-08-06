@@ -1,0 +1,569 @@
+{
+  "schemaVersion": 2,
+  "id": "case-005-restaurant-exit-decision",
+  "title": "満席の店から撤退すべきか",
+  "subtitle": "店舗PLの赤字を、関連原価と代替利用から判断し直す",
+  "releaseOrder": 5,
+  "difficulty": 3,
+  "estimatedMinutes": 46,
+  "learningObjectives": [
+    "店舗PLの営業損失と撤退による増分影響を区別できる",
+    "限界利益、回避可能固定費、回避不能固定費、本部費配賦を分類できる",
+    "設備簿価と将来キャッシュ支出を分けて撤退判断へ使える",
+    "継続、改善、撤退、代替利用を同じ期間と単位で比較できる",
+    "結論、条件、期限、KPIを含む経営提案を作れる"
+  ],
+  "metadata": {
+    "contentVersion": "1.0.0",
+    "status": "published",
+    "releaseOrder": 5,
+    "difficulty": {"level": 3, "label": "応用"},
+    "estimatedMinutes": 46,
+    "format": "full-case",
+    "industry": "multi-site-restaurant",
+    "companyStage": "mature",
+    "fictional": true,
+    "locale": "ja-JP",
+    "publishedAt": "2026-08-06",
+    "reviewedAt": "2026-08-06",
+    "caseTheme": "restaurant"
+  },
+  "pedagogy": {
+    "learningObjectives": [
+      "店舗PLの営業損失と撤退による増分影響を区別できる",
+      "回避可能費用と撤退後も残る費用を分けられる",
+      "簿価、違約金、代替利用価値を同じ意思決定表へ整理できる",
+      "条件付きの継続・撤退提案を作れる"
+    ],
+    "prerequisiteSkillIds": ["analysis.calculation", "analysis.contribution-margin"],
+    "skillIds": [
+      "reasoning.evidence-selection",
+      "accounting.relevant-costs",
+      "accounting.journal-entry",
+      "analysis.variance",
+      "analysis.calculation",
+      "analysis.contribution-margin",
+      "analysis.avoidable-fixed-cost",
+      "analysis.sunk-cost",
+      "analysis.exit-decision",
+      "analysis.scenario-comparison",
+      "consulting.hypothesis",
+      "consulting.recommendation"
+    ],
+    "accountingTopics": ["関連原価", "埋没原価", "除却損", "本部費配賦"],
+    "analysisMethods": ["限界利益分析", "差額原価分析", "シナリオ比較", "回収期間"],
+    "recommendedModes": ["beginner", "standard", "practical"],
+    "reviewStrategy": {"type": "spaced-retrieval", "intervalsDays": [1, 3, 7, 14]}
+  },
+  "company": {
+    "name": "株式会社テーブルリンク",
+    "employees": 128,
+    "business": "首都圏で8店舗を運営するカジュアルレストランチェーン",
+    "displayUnit": "万円"
+  },
+  "decisionJourney": {
+    "initialStepId": "c005-step-01-01",
+    "finalStepId": "c005-step-07-01",
+    "title": "あなたの判断は、どう変わったか"
+  },
+  "documents": [
+    {
+      "id": "c005-store-pl",
+      "type": "financial-statement",
+      "statementType": "profit-and-loss",
+      "title": "青山店 店舗PL",
+      "unit": "万円",
+      "periods": ["当期"],
+      "rows": [
+        {"id": "c005-store-revenue", "label": "売上高", "values": [12000]},
+        {"id": "c005-store-variable-cost", "label": "変動費", "values": [6900]},
+        {"id": "c005-store-contribution-margin", "label": "限界利益", "values": [5100]},
+        {"id": "c005-store-avoidable-fixed", "label": "回避可能固定費", "values": [3540]},
+        {"id": "c005-store-unavoidable-fixed", "label": "撤退後も残る店舗費", "values": [1020]},
+        {"id": "c005-store-hq-allocation", "label": "本部費配賦", "values": [1440]},
+        {"id": "c005-store-operating-loss", "label": "店舗営業損失", "values": [-900]}
+      ]
+    },
+    {
+      "id": "c005-cost-breakdown",
+      "type": "table",
+      "title": "費用の内訳と撤退時の扱い",
+      "unit": "万円／年",
+      "columns": [
+        {"id": "cost", "label": "費用"},
+        {"id": "value", "label": "金額"},
+        {"id": "behavior", "label": "撤退時"},
+        {"id": "reason", "label": "理由"}
+      ],
+      "rows": [
+        {"id": "c005-ingredients", "cost": "食材・包材", "value": 3600, "behavior": "消える", "reason": "売上に連動"},
+        {"id": "c005-hourly-labor", "cost": "パート人件費", "value": 2100, "behavior": "消える", "reason": "営業時間に連動"},
+        {"id": "c005-payment-delivery", "cost": "決済・デリバリー手数料", "value": 1200, "behavior": "消える", "reason": "売上に連動"},
+        {"id": "c005-manager-cost", "cost": "店長人件費", "value": 900, "behavior": "回避可能", "reason": "他店へ配置しない前提"},
+        {"id": "c005-fulltime-staff", "cost": "正社員人件費", "value": 1200, "behavior": "回避可能", "reason": "退職・採用抑制で削減"},
+        {"id": "c005-utilities-base", "cost": "水道光熱・通信基本料", "value": 420, "behavior": "回避可能", "reason": "閉店後に解約"},
+        {"id": "c005-local-promotion", "cost": "店舗販促", "value": 300, "behavior": "回避可能", "reason": "店舗単位で停止"},
+        {"id": "c005-maintenance", "cost": "清掃・保守・消耗品", "value": 720, "behavior": "回避可能", "reason": "閉店後に停止"},
+        {"id": "c005-residual-rent", "cost": "残存賃料", "value": 1020, "behavior": "初年度は残る", "reason": "解約日まで支払い"},
+        {"id": "c005-hq-allocation", "cost": "本部費配賦", "value": 1440, "behavior": "残る", "reason": "他店へ再配賦される"}
+      ]
+    },
+    {
+      "id": "c005-decision-bridge",
+      "type": "decision-bridge",
+      "title": "撤退による年間影響",
+      "unit": "万円／年",
+      "items": [
+        {"label": "失う限界利益", "sourceValueId": "c005-store-contribution-margin", "multiplier": -1},
+        {"label": "回避できる固定費", "sourceValueId": "c005-store-avoidable-fixed", "multiplier": 1}
+      ],
+      "result": -1560,
+      "resultLabel": "代替利用なしの撤退影響",
+      "revealAfterStepId": "c005-step-04-02",
+      "note": "店舗PLの▲900万円ではなく、撤退によって変わる収益と費用だけを比較する。"
+    },
+    {
+      "id": "c005-exit-facts",
+      "type": "table",
+      "title": "閉店時の一時費用と会計情報",
+      "unit": "万円",
+      "columns": [
+        {"id": "item", "label": "項目"},
+        {"id": "value", "label": "金額"},
+        {"id": "cash", "label": "将来キャッシュ"},
+        {"id": "decisionUse", "label": "判断での扱い"}
+      ],
+      "rows": [
+        {"id": "c005-equipment-book-value", "item": "内装・設備の簿価", "value": 1800, "cash": "なし", "decisionUse": "過去原価。除却損表示には影響"},
+        {"id": "c005-equipment-sale", "item": "設備売却収入", "value": 300, "cash": "入金", "decisionUse": "撤退時キャッシュ"},
+        {"id": "c005-removal-cost", "item": "原状回復費", "value": 250, "cash": "支出", "decisionUse": "撤退時キャッシュ"},
+        {"id": "c005-lease-penalty", "item": "中途解約違約金", "value": 600, "cash": "支出", "decisionUse": "撤退時キャッシュ"},
+        {"id": "c005-replacement-investment", "item": "代替業態への初期投資", "value": 1800, "cash": "支出", "decisionUse": "代替案の投資"}
+      ]
+    },
+    {
+      "id": "c005-scenarios",
+      "type": "scenario-comparison",
+      "title": "4つの選択肢",
+      "unit": "万円",
+      "columns": [
+        {"id": "scenario", "label": "選択肢"},
+        {"id": "annualImpact", "label": "年間増分"},
+        {"id": "initialCash", "label": "初期キャッシュ"},
+        {"id": "yearOneImpact", "label": "初年度差額"},
+        {"id": "condition", "label": "成立条件"}
+      ],
+      "rows": [
+        {"id": "c005-scenario-continue", "scenario": "現状継続", "annualImpact": 0, "initialCash": 0, "yearOneImpact": 0, "condition": "比較基準"},
+        {"id": "c005-scenario-improve", "scenario": "90日改善", "annualImpact": 840, "initialCash": -600, "yearOneImpact": 240, "condition": "客単価とシフトを改善"},
+        {"id": "c005-scenario-close", "scenario": "代替なし撤退", "annualImpact": -1560, "initialCash": -550, "yearOneImpact": -2110, "condition": "売却収入を含む撤退純支出"},
+        {"id": "c005-scenario-replace", "scenario": "代替業態へ転換", "annualImpact": 840, "initialCash": -1800, "yearOneImpact": -960, "condition": "代替価値2,400万円／年"}
+      ]
+    },
+    {
+      "id": "c005-management-interview",
+      "type": "interview",
+      "title": "現場・本部ヒアリング",
+      "speaker": "店長・人事・物件開発部",
+      "entries": [
+        {"question": "満席なのに、なぜ赤字ですか。", "answer": "金曜夜は満席ですが、平日ランチと月〜水の夜は空席が多く、繁忙時間へ人員を合わせ切れていません。"},
+        {"question": "閉店すれば本部費は減りますか。", "answer": "本部人員とシステム契約は変わらないため、当面は他の7店舗へ再配賦されます。"},
+        {"question": "改善余地はありますか。", "answer": "メニュー数の削減、予約枠、ランチ休止、シフト再編で年間840万円の改善余地を見込んでいます。90日で検証できます。"},
+        {"question": "跡地の候補はありますか。", "answer": "小型の別業態なら年間2,400万円の増分価値を見込めますが、初期投資1,800万円と立ち上げリスクがあります。"}
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "id": "c005-page-01-briefing",
+      "order": 1,
+      "type": "story",
+      "title": "満席なのに、閉店候補",
+      "unlock": {"type": "always"},
+      "estimatedMinutes": 4,
+      "skillIds": ["consulting.hypothesis"],
+      "story": [
+        "金曜日の19時、青山店は全席が埋まり、入口には入店を待つ客が並んでいた。",
+        "翌週の経営会議資料には、同店の営業損失▲900万円と『閉店候補』の文字がある。社長は『満席の店を本当に閉じるのか』と判断を求めた。",
+        "あなたの役割は、店舗PLをそのまま受け入れず、閉店で消える利益と費用、残る費用、一時撤退費用、跡地の価値を整理することである。"
+      ],
+      "mission": {
+        "primary": "店舗PLの赤字を、撤退による増分影響へ組み替える",
+        "deliverables": ["限界利益と回避可能固定費を計算する", "簿価と将来キャッシュを区別する", "継続・改善・撤退・代替利用を比較する"]
+      },
+      "guideMessage": {"mood": "neutral", "text": "最初の判断を記録します。正解ではなく、現時点で何を根拠にしたかが後で重要になります。"},
+      "steps": [
+        {
+          "id": "c005-step-01-01",
+          "type": "singleChoice",
+          "instruction": "現時点の判断に最も近いものを選んでください。",
+          "skillIds": ["consulting.hypothesis"],
+          "hints": [{"level": 1, "label": "直感", "text": "まだ資料はありません。現在の仮説をそのまま選びます。"}],
+          "assessment": {"mode": "completion", "maxPoints": 0, "rubricCriteria": []},
+          "options": [
+            {"id": "close-now", "label": "店舗PLが赤字なので閉店する"},
+            {"id": "continue-now", "label": "満席なので継続する"},
+            {"id": "need-relevant-costs", "label": "閉店で変わる収益・費用を確認してから決める"}
+          ],
+          "correctOptionId": "need-relevant-costs",
+          "scoring": {"maxPoints": 0},
+          "feedback": {"need-relevant-costs": "よい出発点です。店舗PLではなく、意思決定で変わる数字を確認します。", "default": "初期判断を記録しました。後で、どの証拠が判断を変えたか比べます。"}
+        }
+      ]
+    },
+    {
+      "id": "c005-page-02-store-pl",
+      "order": 2,
+      "type": "document",
+      "title": "▲900万円を疑う",
+      "unlock": {"type": "page-complete", "pageId": "c005-page-01-briefing"},
+      "estimatedMinutes": 5,
+      "skillIds": ["reasoning.evidence-selection", "analysis.contribution-margin"],
+      "documentIds": ["c005-store-pl"],
+      "intro": "店舗PLを、売上・限界利益・固定費・配賦へ分ける。",
+      "steps": [
+        {
+          "id": "c005-step-02-01",
+          "type": "highlightAnomaly",
+          "instruction": "撤退判断で特に確認すべき2項目を選んでください。",
+          "skillIds": ["reasoning.evidence-selection", "analysis.contribution-margin"],
+          "hints": [{"level": 1, "label": "着眼点", "text": "閉店で失う利益と、PLへ配賦されていても残る費用を見ます。"}],
+          "assessment": {"mode": "auto", "maxPoints": 10, "rubricCriteria": []},
+          "selectableValueIds": ["c005-store-revenue", "c005-store-contribution-margin", "c005-store-avoidable-fixed", "c005-store-hq-allocation", "c005-store-operating-loss"],
+          "correctValueIds": ["c005-store-contribution-margin", "c005-store-hq-allocation"],
+          "scoring": {"maxPoints": 10, "perCorrect": 5},
+          "feedback": {"allCorrect": "正解です。失う限界利益と、撤退後も残る本部費配賦を確認します。", "partial": "一部を捉えています。閉店で変わるかどうかを基準にします。", "incorrect": "店舗PLの最終損失だけでなく、その内訳が閉店で変わるかを見ます。"}
+        },
+        {
+          "id": "c005-step-02-02",
+          "type": "singleChoice",
+          "instruction": "店舗営業損失▲900万円の説明として最も正確なものを選んでください。",
+          "skillIds": ["accounting.relevant-costs"],
+          "hints": [{"level": 1, "label": "式", "text": "限界利益5,100－固定費6,000です。固定費がすべて消えるとは限りません。"}],
+          "assessment": {"mode": "auto", "maxPoints": 5, "rubricCriteria": []},
+          "options": [
+            {"id": "all-avoidable", "label": "閉店すれば900万円だけ会社利益が改善する"},
+            {"id": "reported-not-incremental", "label": "配賦を含む報告損失であり、撤退差額とは一致しない"},
+            {"id": "no-contribution", "label": "店舗は限界利益を生んでいない"},
+            {"id": "cash-shortage", "label": "店舗の現金残高が900万円不足している"}
+          ],
+          "correctOptionId": "reported-not-incremental",
+          "scoring": {"maxPoints": 5},
+          "feedback": {"reported-not-incremental": "正解です。店舗PLは管理上の報告で、撤退により変化する額だけを示していません。", "default": "配賦額と撤退後も残る費用を分けます。"}
+        }
+      ]
+    },
+    {
+      "id": "c005-page-03-relevant-costs",
+      "order": 3,
+      "type": "document",
+      "title": "閉店で消える費用、残る費用",
+      "unlock": {"type": "page-complete", "pageId": "c005-page-02-store-pl"},
+      "estimatedMinutes": 6,
+      "skillIds": ["accounting.relevant-costs", "analysis.avoidable-fixed-cost"],
+      "documentIds": ["c005-cost-breakdown"],
+      "intro": "費用の名前ではなく、意思決定によって将来変わるかで分類する。",
+      "steps": [
+        {
+          "id": "c005-step-03-01",
+          "type": "multipleChoice",
+          "instruction": "回避可能固定費に含める5項目を選んでください。",
+          "skillIds": ["analysis.avoidable-fixed-cost"],
+          "hints": [{"level": 1, "label": "判断基準", "text": "売上連動の変動費ではなく、閉店を選ぶと将来支払わずに済む固定費です。"}],
+          "assessment": {"mode": "auto", "maxPoints": 15, "rubricCriteria": []},
+          "options": [
+            {"id": "manager", "label": "店長人件費900万円"},
+            {"id": "fulltime", "label": "正社員人件費1,200万円"},
+            {"id": "utilities", "label": "水道光熱・通信基本料420万円"},
+            {"id": "promotion", "label": "店舗販促300万円"},
+            {"id": "maintenance", "label": "清掃・保守・消耗品720万円"},
+            {"id": "residual-rent", "label": "解約日までの残存賃料1,020万円"},
+            {"id": "hq", "label": "本部費配賦1,440万円"},
+            {"id": "ingredients", "label": "食材・包材3,600万円"}
+          ],
+          "correctOptionIds": ["manager", "fulltime", "utilities", "promotion", "maintenance"],
+          "scoring": {"maxPoints": 15, "perCorrect": 3, "penaltyPerIncorrect": 0},
+          "feedback": {"allCorrect": "正解です。5項目の合計は3,540万円です。", "partial": "一部を分類できています。変動費、残存賃料、本部費配賦を除きます。", "incorrect": "閉店によって将来支払わずに済む固定費だけを選びます。"}
+        },
+        {
+          "id": "c005-step-03-02",
+          "type": "singleChoice",
+          "instruction": "本部費配賦1,440万円の扱いとして最も適切なものを選んでください。",
+          "skillIds": ["accounting.relevant-costs"],
+          "hints": [{"level": 1, "label": "着眼点", "text": "青山店を閉じた後、本部人員とシステム契約が減るかを考えます。"}],
+          "assessment": {"mode": "auto", "maxPoints": 5, "rubricCriteria": []},
+          "options": [
+            {"id": "fully-avoidable", "label": "全額が直ちに消える"},
+            {"id": "reallocated", "label": "会社全体では残り、他店へ再配賦される"},
+            {"id": "variable", "label": "売上に比例して変わる"},
+            {"id": "cash-income", "label": "閉店時の収入になる"}
+          ],
+          "correctOptionId": "reallocated",
+          "scoring": {"maxPoints": 5},
+          "feedback": {"reallocated": "正解です。店舗PLから消えても、会社全体の費用は減りません。", "default": "配賦先が変わることと、会社全体の費用が減ることを分けます。"}
+        }
+      ]
+    },
+    {
+      "id": "c005-page-04-exit-delta",
+      "order": 4,
+      "type": "calculator",
+      "title": "閉店すると、年間利益は悪化する",
+      "unlock": {"type": "page-complete", "pageId": "c005-page-03-relevant-costs"},
+      "estimatedMinutes": 7,
+      "skillIds": ["analysis.contribution-margin", "analysis.exit-decision", "analysis.calculation"],
+      "documentIds": ["c005-decision-bridge"],
+      "intro": "失う限界利益と回避できる固定費だけで、撤退の年間影響を計算する。",
+      "steps": [
+        {
+          "id": "c005-step-04-01",
+          "type": "formulaBuilder",
+          "instruction": "店舗が固定費回収へ貢献している年間額を計算してください。",
+          "skillIds": ["analysis.calculation", "analysis.contribution-margin"],
+          "hints": [{"level": 1, "label": "式", "text": "限界利益－回避可能固定費です。"}],
+          "assessment": {"mode": "auto", "maxPoints": 10, "rubricCriteria": []},
+          "formula": {"template": "限界利益 − 回避可能固定費", "nodes": [{"acceptedValueIds": ["c005-store-contribution-margin"]}, {"acceptedValueIds": ["c005-store-avoidable-fixed"]}]},
+          "expected": {"value": 1560, "unit": "万円／年", "tolerance": 0.1},
+          "scoring": {"maxPoints": 10},
+          "feedback": {"correct": "正解です。青山店は撤退後も残る費用の回収へ1,560万円貢献しています。", "incorrect": "5,100－3,540を計算します。店舗PL損失▲900万円は使いません。"}
+        },
+        {
+          "id": "c005-step-04-02",
+          "type": "formulaBuilder",
+          "instruction": "代替利用なしで撤退した場合の年間影響を計算してください。",
+          "skillIds": ["analysis.calculation", "analysis.exit-decision"],
+          "hints": [{"level": 1, "label": "符号", "text": "回避できる費用をプラス、失う限界利益をマイナスとして計算します。"}],
+          "assessment": {"mode": "auto", "maxPoints": 10, "rubricCriteria": []},
+          "formula": {"template": "回避可能固定費 − 限界利益", "nodes": [{"acceptedValueIds": ["c005-store-avoidable-fixed"]}, {"acceptedValueIds": ["c005-store-contribution-margin"]}]},
+          "expected": {"value": -1560, "unit": "万円／年", "tolerance": 0.1},
+          "scoring": {"maxPoints": 10},
+          "feedback": {"correct": "正解です。代替利用がなければ、撤退は会社全体の年間利益を1,560万円悪化させます。", "incorrect": "3,540－5,100です。マイナスは改善ではなく悪化を表します。"}
+        },
+        {
+          "id": "c005-step-04-03",
+          "type": "singleChoice",
+          "instruction": "ここまでの結論として最も正確なものを選んでください。",
+          "skillIds": ["analysis.exit-decision"],
+          "hints": [{"level": 1, "label": "条件", "text": "代替利用と一時費用はまだ入れていません。"}],
+          "assessment": {"mode": "auto", "maxPoints": 5, "rubricCriteria": []},
+          "options": [
+            {"id": "close-because-loss", "label": "▲900万円の赤字なので直ちに閉店する"},
+            {"id": "continue-forever", "label": "1,560万円貢献するので永久に継続する"},
+            {"id": "do-not-close-without-alternative", "label": "代替利用なしの即時撤退は不利。改善案と跡地価値を比較する"},
+            {"id": "ignore-fixed", "label": "固定費はすべて無視する"}
+          ],
+          "correctOptionId": "do-not-close-without-alternative",
+          "scoring": {"maxPoints": 5},
+          "feedback": {"do-not-close-without-alternative": "正解です。撤退を否定するのではなく、1,560万円を上回る代替案があるかを調べます。", "default": "現時点では、代替利用なしの撤退だけが不利だと分かっています。"}
+        }
+      ]
+    },
+    {
+      "id": "c005-page-05-exit-cash",
+      "order": 5,
+      "type": "document",
+      "title": "簿価は過去、違約金は未来",
+      "unlock": {"type": "page-complete", "pageId": "c005-page-04-exit-delta"},
+      "estimatedMinutes": 6,
+      "skillIds": ["analysis.sunk-cost", "accounting.relevant-costs"],
+      "documentIds": ["c005-exit-facts"],
+      "intro": "会計上の損失表示と、これから動くキャッシュを分ける。",
+      "steps": [
+        {
+          "id": "c005-step-05-01",
+          "type": "formulaBuilder",
+          "instruction": "設備を300万円で売却する場合の除却・売却損を計算してください。",
+          "skillIds": ["analysis.calculation", "analysis.sunk-cost"],
+          "hints": [{"level": 1, "label": "式", "text": "簿価－売却収入です。"}],
+          "assessment": {"mode": "auto", "maxPoints": 10, "rubricCriteria": []},
+          "formula": {"template": "設備簿価 − 売却収入", "nodes": [{"acceptedValueIds": ["c005-equipment-book-value"]}, {"acceptedValueIds": ["c005-equipment-sale"]}]},
+          "expected": {"value": 1500, "unit": "万円", "tolerance": 0.1},
+          "scoring": {"maxPoints": 10},
+          "feedback": {"correct": "正解です。会計上は1,500万円の損失ですが、簿価1,800万円そのものは将来支出ではありません。", "incorrect": "1,800－300を計算します。"}
+        },
+        {
+          "id": "c005-step-05-02",
+          "type": "multipleChoice",
+          "instruction": "撤退を選ぶことで発生する将来キャッシュ支出を3つ選んでください。",
+          "skillIds": ["accounting.relevant-costs", "analysis.sunk-cost"],
+          "hints": [{"level": 1, "label": "着眼点", "text": "既に支出済みの簿価ではなく、これから支払う項目です。"}],
+          "assessment": {"mode": "auto", "maxPoints": 15, "rubricCriteria": []},
+          "options": [
+            {"id": "removal", "label": "原状回復費250万円"},
+            {"id": "penalty", "label": "中途解約違約金600万円"},
+            {"id": "residual-rent-cash", "label": "解約日までの残存賃料1,020万円"},
+            {"id": "book-value", "label": "内装・設備の簿価1,800万円"},
+            {"id": "hq-allocation-cash", "label": "本部費配賦1,440万円"},
+            {"id": "reported-loss", "label": "店舗PL損失900万円"}
+          ],
+          "correctOptionIds": ["removal", "penalty", "residual-rent-cash"],
+          "scoring": {"maxPoints": 15, "perCorrect": 5, "penaltyPerIncorrect": 0},
+          "feedback": {"allCorrect": "正解です。原状回復、違約金、残存賃料は将来キャッシュです。", "partial": "一部を選べています。簿価と配賦額は将来支出ではありません。", "incorrect": "撤退を選んだ後に実際に支払うものだけを選びます。"}
+        },
+        {
+          "id": "c005-step-05-03",
+          "type": "singleChoice",
+          "instruction": "設備簿価1,800万円を意思決定でどう扱うべきですか。",
+          "skillIds": ["analysis.sunk-cost"],
+          "hints": [{"level": 1, "label": "過去と未来", "text": "支出済みか、これから変えられるかを見ます。"}],
+          "assessment": {"mode": "auto", "maxPoints": 5, "rubricCriteria": []},
+          "options": [
+            {"id": "must-recover", "label": "全額回収できるまで必ず営業を続ける"},
+            {"id": "ignore-accounting", "label": "会計上も一切表示しない"},
+            {"id": "sunk-but-report", "label": "将来判断では埋没原価だが、除却損表示は説明する"},
+            {"id": "future-cash", "label": "撤退時に1,800万円を新たに支払う"}
+          ],
+          "correctOptionId": "sunk-but-report",
+          "scoring": {"maxPoints": 5},
+          "feedback": {"sunk-but-report": "正解です。意思決定と財務報告の役割を分けています。", "default": "簿価は過去の支出ですが、会計上の損失説明には必要です。"}
+        }
+      ]
+    },
+    {
+      "id": "c005-page-06-scenarios",
+      "order": 6,
+      "type": "calculator",
+      "title": "撤退ではなく、選択肢を比べる",
+      "unlock": {"type": "page-complete", "pageId": "c005-page-05-exit-cash"},
+      "estimatedMinutes": 6,
+      "skillIds": ["analysis.scenario-comparison", "analysis.calculation"],
+      "documentIds": ["c005-scenarios", "c005-management-interview"],
+      "intro": "年間増分と初期キャッシュを分け、同じ期間で比較する。",
+      "steps": [
+        {
+          "id": "c005-step-06-01",
+          "type": "formulaBuilder",
+          "instruction": "3年で初期投資1,800万円も回収する場合、代替利用に必要な年間価値を計算してください。",
+          "skillIds": ["analysis.calculation", "analysis.scenario-comparison"],
+          "hints": [{"level": 1, "label": "式", "text": "失う年間貢献＋初期投資÷3年です。"}],
+          "assessment": {"mode": "auto", "maxPoints": 10, "rubricCriteria": []},
+          "formula": {"template": "失う年間貢献 ＋ 初期投資 ÷ 評価年数", "nodes": [{"constant": 1560, "label": "失う年間貢献"}, {"acceptedValueIds": ["c005-replacement-investment"]}, {"constant": 3, "label": "評価年数"}]},
+          "expected": {"value": 2160, "unit": "万円／年", "tolerance": 0.1},
+          "scoring": {"maxPoints": 10},
+          "feedback": {"correct": "正解です。代替案の年間価値2,400万円は、3年基準の2,160万円を上回ります。", "incorrect": "1,560＋1,800÷3を計算します。"}
+        },
+        {
+          "id": "c005-step-06-02",
+          "type": "singleChoice",
+          "instruction": "現時点で最も合理的な進め方を選んでください。",
+          "skillIds": ["analysis.scenario-comparison", "consulting.hypothesis"],
+          "hints": [{"level": 1, "label": "順序", "text": "初年度差額と、90日で検証できる改善余地を確認します。"}],
+          "assessment": {"mode": "auto", "maxPoints": 5, "rubricCriteria": []},
+          "options": [
+            {"id": "close-immediately", "label": "店舗PLだけを根拠に直ちに閉店する"},
+            {"id": "improve-then-gate", "label": "90日改善を実行し、KPI未達なら代替業態への転換を再判断する"},
+            {"id": "continue-no-review", "label": "満席日があるため無期限に現状継続する"},
+            {"id": "replace-ignore-investment", "label": "初期投資を無視して直ちに代替業態へ転換する"}
+          ],
+          "correctOptionId": "improve-then-gate",
+          "scoring": {"maxPoints": 5},
+          "feedback": {"improve-then-gate": "正解です。短期改善の検証可能性と、代替利用の中期価値を条件付きでつなぎます。", "default": "今すぐ一択にせず、90日で検証できる改善と撤退条件を設定します。"}
+        }
+      ]
+    },
+    {
+      "id": "c005-page-07-decision",
+      "order": 7,
+      "type": "decision",
+      "title": "続ける条件、やめる条件",
+      "unlock": {"type": "page-complete", "pageId": "c005-page-06-scenarios"},
+      "estimatedMinutes": 8,
+      "skillIds": ["analysis.exit-decision", "consulting.recommendation"],
+      "documentIds": ["c005-decision-bridge", "c005-scenarios"],
+      "intro": "結論だけでなく、期限、KPI、撤退条件を経営会議へ示す。",
+      "steps": [
+        {
+          "id": "c005-step-07-01",
+          "type": "singleChoice",
+          "instruction": "最終判断として最も適切なものを選んでください。",
+          "skillIds": ["analysis.exit-decision", "consulting.recommendation"],
+          "hints": [{"level": 1, "label": "条件付き判断", "text": "90日改善と、未達時の代替利用を一つの判断にします。"}],
+          "assessment": {"mode": "auto", "maxPoints": 10, "rubricCriteria": []},
+          "options": [
+            {"id": "final-close", "label": "店舗PLの赤字を理由に直ちに閉店"},
+            {"id": "final-continue", "label": "満席日を理由に無条件で継続"},
+            {"id": "final-improve-with-exit-gate", "label": "90日改善。未達なら代替業態への転換を実行"},
+            {"id": "final-wait", "label": "期限を決めず追加情報を待つ"}
+          ],
+          "correctOptionId": "final-improve-with-exit-gate",
+          "scoring": {"maxPoints": 10},
+          "feedback": {"final-improve-with-exit-gate": "正解です。関連原価、検証期間、代替利用を一つの経営判断へつなげました。", "default": "判断には根拠だけでなく、期限と次の分岐条件が必要です。"}
+        },
+        {
+          "id": "c005-step-07-02",
+          "type": "proposalBuilder",
+          "instruction": "経営会議への提案を、根拠・90日施策・撤退条件に分けてまとめてください。",
+          "skillIds": ["consulting.recommendation"],
+          "hints": [{"level": 1, "label": "構成", "text": "1,560万円、840万円、2,160万円を使い、いつ再判断するかを書きます。"}],
+          "assessment": {"mode": "self-review", "maxPoints": 0, "rubricCriteria": [{"id": "evidence", "label": "数値根拠", "weight": 4}, {"id": "action", "label": "実行策", "weight": 3}, {"id": "gate", "label": "撤退条件", "weight": 3}]},
+          "fields": [
+            {"id": "evidence", "label": "判断の根拠", "placeholder": "店舗PLと撤退差額の違いを数値で説明", "required": true},
+            {"id": "first90Days", "label": "90日以内の施策とKPI", "placeholder": "メニュー、シフト、客単価、限界利益の目標", "required": true},
+            {"id": "exitGate", "label": "撤退・転換を実行する条件", "placeholder": "期限、未達KPI、代替利用の最低価値", "required": true}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c005-page-08-ending",
+      "order": 8,
+      "type": "ending",
+      "title": "赤字ではなく、変わる数字を見る",
+      "unlock": {"type": "page-complete", "pageId": "c005-page-07-decision"},
+      "estimatedMinutes": 4,
+      "skillIds": ["analysis.exit-decision", "consulting.recommendation"],
+      "story": [
+        "経営会議は、青山店を直ちに閉めるのではなく、90日の改善期間を置くことを決めた。",
+        "週次会議では売上だけでなく、時間帯別限界利益、シフト人時、客単価、廃棄率を確認する。改善未達の場合は、代替業態への転換を進める条件も同時に承認した。",
+        "店舗PLの赤字は消えていない。しかし会社は、報告上の赤字と、選択によって変わる利益を分けて話せるようになった。"
+      ],
+      "modelAnalysis": {
+        "summary": "青山店の店舗PLは▲900万円だが、限界利益5,100万円に対して撤退で回避できる固定費は3,540万円である。代替利用なしの撤退は、会社全体の年間利益を1,560万円悪化させる。したがって直ちに閉店するのではなく、90日改善を実行し、未達時に年間価値2,160万円以上を条件として代替利用へ転換する。",
+        "keyFindings": [
+          {"title": "店舗PLと撤退差額は一致しない", "evidence": "店舗PL▲900万円には、撤退後も残る費用2,460万円が含まれる。"},
+          {"title": "店舗は固定費回収へ貢献している", "evidence": "限界利益5,100万円－回避可能固定費3,540万円＝1,560万円。"},
+          {"title": "簿価と将来キャッシュを分ける", "evidence": "簿価1,800万円は過去原価だが、違約金600万円、原状回復250万円、残存賃料は将来キャッシュである。"},
+          {"title": "撤退は代替案と比較する", "evidence": "3年で初期投資も回収する代替利用の最低年間価値は2,160万円である。"}
+        ],
+        "recommendedActions": [
+          {"horizon": "今週", "action": "時間帯別限界利益、客単価、人時売上、廃棄率の基準値を固定する。"},
+          {"horizon": "30日", "action": "メニュー削減、ランチ営業時間、予約枠、シフト配置を試行する。"},
+          {"horizon": "90日", "action": "年間840万円改善の達成可否を判定し、未達なら代替業態への転換を決議する。"},
+          {"horizon": "転換時", "action": "違約金・原状回復・残存賃料と初期投資を含むキャッシュ計画を承認する。"}
+        ]
+      },
+      "review": {
+        "rubricId": "rubric-case-005",
+        "checklist": [
+          "店舗PL▲900万円と撤退影響▲1,560万円を区別した",
+          "限界利益5,100万円と回避可能固定費3,540万円を使った",
+          "本部費配賦と残存賃料が撤退後も残ることを説明した",
+          "簿価と将来キャッシュ支出を分けた",
+          "改善、撤退、代替利用を同じ期間で比較した",
+          "90日のKPIと撤退条件を提案へ含めた"
+        ]
+      },
+      "resultTiers": [
+        {"id": "excellent", "minScore": 85, "title": "赤字を、意思決定へ変えられています", "message": "関連原価、撤退キャッシュ、代替利用、実行条件を一つの提案へつなげました。"},
+        {"id": "good", "minScore": 65, "title": "閉店で変わる数字を捉えました", "message": "撤退差額を計算できています。簿価と将来キャッシュ、期限付きKPIまで整理するとさらに強くなります。"},
+        {"id": "review", "minScore": 0, "title": "店舗PLの外側をもう一度見ましょう", "message": "限界利益、回避可能固定費、撤退後も残る費用の順に確認してください。"}
+      ]
+    }
+  ],
+  "scoring": {
+    "maxAutoScore": 115,
+    "proposalSelfReviewMax": 15,
+    "maxTotalScore": 130,
+    "normalizedScoreFormula": "round(autoScore / 115 * 100)",
+    "autoScoredStepIds": [
+      "c005-step-02-01", "c005-step-02-02",
+      "c005-step-03-01", "c005-step-03-02",
+      "c005-step-04-01", "c005-step-04-02", "c005-step-04-03",
+      "c005-step-05-01", "c005-step-05-02", "c005-step-05-03",
+      "c005-step-06-01", "c005-step-06-02",
+      "c005-step-07-01"
+    ],
+    "scoreDisplay": "percentage",
+    "allowRetry": true
+  }
+}

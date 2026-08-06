@@ -124,6 +124,14 @@ function checkAnswer(button) {
 
 function gradeStep(step, value) {
   const maxScore = step.scoring?.maxPoints || 0;
+  if (step.assessment?.mode === "completion") {
+    return {
+      correct: true,
+      score: 0,
+      maxScore: 0,
+      feedback: step.feedback?.[value] || step.feedback?.default || "現在の判断を記録しました。",
+    };
+  }
   if (step.type === "singleChoice") {
     const correct = value === step.correctOptionId;
     return { correct, score: correct ? maxScore : 0, maxScore, feedback: step.feedback?.[value] || step.feedback?.default || (correct ? "正解です。" : "もう一度確認しましょう。") };

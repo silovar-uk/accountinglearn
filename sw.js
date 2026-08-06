@@ -1,4 +1,4 @@
-const CACHE_NAME = "accounting-quest-v9";
+const CACHE_NAME = "accounting-quest-v10";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -12,6 +12,7 @@ const APP_SHELL = [
   "./deep-3.css",
   "./deep-4.css",
   "./basics.css",
+  "./aq-next.css",
   "./case-schema.js",
   "./app-core.js",
   "./case-schema-bootstrap.js",
@@ -40,6 +41,7 @@ const APP_SHELL = [
   "./deep-actions.js",
   "./basics-ui.js",
   "./basics-actions.js",
+  "./aq-next.js",
   "./pwa.js",
   "./favicon.svg",
   "./icon-192.png",
@@ -52,7 +54,8 @@ const APP_SHELL = [
   "./data/cases/case-001-black-profit-no-cash.json",
   "./data/cases/case-002-sleeping-hit-products.json",
   "./data/cases/case-003-growth-that-burns-cash.json",
-  "./data/cases/case-004-busy-factory-vanishing-profit.json"
+  "./data/cases/case-004-busy-factory-vanishing-profit.json",
+  "./data/cases/case-005-restaurant-exit-decision.json"
 ];
 
 self.addEventListener("install", (event) => {
