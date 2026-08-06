@@ -1,4 +1,4 @@
-const CACHE_NAME = "accounting-quest-v7";
+const CACHE_NAME = "accounting-quest-v8";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -50,7 +50,8 @@ const APP_SHELL = [
   "./data/skills/index.json",
   "./data/basics/index.json",
   "./data/cases/case-001-black-profit-no-cash.json",
-  "./data/cases/case-002-sleeping-hit-products.json"
+  "./data/cases/case-002-sleeping-hit-products.json",
+  "./data/cases/case-003-growth-that-burns-cash.json"
 ];
 
 self.addEventListener("install", (event) => {
