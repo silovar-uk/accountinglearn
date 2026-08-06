@@ -5,8 +5,10 @@
 ## 現在の実装
 
 - CASE 1「黒字なのに、口座にお金がない」全8ページ
+- CASE 2「倉庫に眠るヒット商品」全8ページ
 - CASE 1へ接続する基礎簿記6単元・24問
 - 売上と入金、売掛金、前受金、費用と支払い、キャッシュフロー、運転資本
+- 在庫、粗利益率、消化率、在庫回転日数、SKU別採算、商品評価損
 - JSONからケース・基礎教材・資料・設問を描画
 - ケーススキーマv2とv1互換のランタイム正規化
 - 共通技能カタログとケース・ページ・設問・基礎単元の技能接続
@@ -49,7 +51,26 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-`npm run check`では、JavaScript構文、ケースJSON、基礎教材JSON、財務数値、ケーススキーマv2、技能参照、ページ解除条件、CASE 1リンク、UI資産、計算エンジン、PWA資産を確認します。GitHub Actionsでは高速検証の成功後にPC・スマートフォンのブラウザ回帰を実行します。
+`npm run check`では、JavaScript構文、公開中の全ケースJSON、基礎教材JSON、財務数値、ケーススキーマv2、技能参照、全ケース横断の設問ID、ページ解除条件、CASE 1リンク、UI資産、計算エンジン、PWA資産を確認します。GitHub Actionsでは高速検証の成功後にPC・スマートフォンのブラウザ回帰を実行します。
+
+## 公開ケース
+
+### CASE 1 黒字なのに、口座にお金がない
+
+イベント制作会社を題材に、利益と現金、売掛金、設備投資、資金繰りを扱います。公開済みソースは保存互換のためschemaVersion 1のまま保持し、実行時にv2へ正規化します。
+
+### CASE 2 倉庫に眠るヒット商品
+
+スポーツアパレル会社を題材に、売上増加と粗利率低下、SKU別採算、値引き、在庫回転、商品評価損を扱います。新規制作の標準形として、最初からschemaVersion 2で記述しています。
+
+主要な分析値:
+
+- 売上高 18,000万円 → 22,500万円
+- 粗利益率 40.0％ → 34.0％
+- 棚卸資産 2,400万円 → 4,800万円
+- 在庫回転日数 約81日 → 約118日
+- 記念Tシャツ消化率 60％
+- 商品評価損 360万円
 
 ## 基礎簿記コース
 
@@ -76,9 +97,10 @@ npm run validate:basics
 
 1. `tests/fixtures/case-v2-minimal.json`を参考にケースJSONを作る
 2. 必要な技能を`data/skills/index.json`へ追加する
-3. `data/cases/index.json`へケース情報とパスを追加する
-4. ケース単体を検証する
-5. 全体検証とブラウザ回帰を実行する
+3. 全ケースで重複しない設問IDを付ける（例：`c003-step-02-01`）
+4. `data/cases/index.json`へケース情報とパスを追加する
+5. ケース単体を検証する
+6. 全体検証とブラウザ回帰を実行する
 
 ```bash
 npm run validate:case -- data/cases/<file>.json
@@ -87,7 +109,7 @@ npm run check
 npm run test:e2e
 ```
 
-公開済みIDは学習記録と結びつくため、case・page・step・option・document・valueの各IDを安易に変更しません。
+公開済みIDは学習記録と結びつくため、case・page・step・option・document・valueの各IDを安易に変更しません。特にstep IDは回答と計算補助の共通キーになるため、ケース番号を接頭辞として付けます。
 
 ## v1ケースの移行
 
@@ -104,6 +126,7 @@ npm run migrate:case-v2 -- \
 ## 設計資料
 
 - `docs/foundations-course.md`
+- `docs/case-002-inventory-margin.md`
 - `docs/case-schema-v2.md`
 - `docs/case-authoring-checklist.md`
 - `docs/browser-regression.md`
