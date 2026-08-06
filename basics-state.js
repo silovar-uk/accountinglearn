@@ -127,3 +127,15 @@ function getBasicReviewItems() {
     };
   }).filter((item) => item.lesson && item.question);
 }
+
+const legacyGetTodayCompletedStepsForBasics = getTodayCompletedSteps;
+getTodayCompletedSteps = function getTodayCompletedCaseAndFoundationSteps() {
+  const today = toLocalDateKey();
+  const foundationCount = Object.values(state.basicsProgress || {}).reduce((total, progress) => {
+    return total + Object.values(progress?.answers || {}).filter((answer) => {
+      if (!answer?.checkedAt) return false;
+      return toLocalDateKey(new Date(answer.checkedAt)) === today;
+    }).length;
+  }, 0);
+  return legacyGetTodayCompletedStepsForBasics() + foundationCount;
+};
