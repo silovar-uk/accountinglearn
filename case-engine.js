@@ -101,6 +101,10 @@ function evaluateFormulaParts(values, operators) {
   }
 }
 
+function formatFormulaNumber(value) {
+  return new Intl.NumberFormat("ja-JP", { maximumFractionDigits: 4 }).format(value);
+}
+
 function resolveFormulaHelper(stepId) {
   const data = findCaseForStep(stepId);
   const step = data?.pages.flatMap((page) => page.steps || []).find((item) => item.id === stepId);
@@ -115,7 +119,7 @@ function resolveFormulaHelper(stepId) {
   if (!Number.isFinite(value)) return null;
 
   const expression = values
-    .map((item, index) => `${index ? `${operators[index - 1]} ` : ""}${formatNumber(item)}`)
+    .map((item, index) => `${index ? `${operators[index - 1]} ` : ""}${formatFormulaNumber(item)}`)
     .join(" ");
 
   return { expression, value };
