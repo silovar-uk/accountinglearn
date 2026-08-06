@@ -6,17 +6,18 @@
 
 - CASE 1「黒字なのに、口座にお金がない」全8ページ
 - JSONからケース・資料・設問を描画
+- ケーススキーマv2とv1互換のランタイム正規化
+- 共通技能カタログとケース・ページ・設問の技能接続
 - 選択問題、異常値選択、計算、仕訳、提案入力
-- 回答直後のフィードバックと自動採点
-- 回答履歴、初回正答率、再挑戦、ヒント
-- スマート再開とページ単位の完了判定
+- 段階ヒント、回答履歴、初回正答率、再挑戦
+- スマート再開と条件付きページ解除
 - 誤答の復習リスト
 - 数値を資料から選べる計算トレイ
 - 連続学習日数と1日の学習目標
 - ブラウザ内の進捗保存
 - 学習データのJSON書き出し・読込
 - PWA、オフライン起動、ホーム画面アイコン
-- PC／スマートフォン対応
+- PC／スマートフォンのPlaywright回帰テスト
 - 外部ランタイムライブラリ不要
 
 ## 起動
@@ -31,21 +32,58 @@ npm run serve
 
 ## 検証
 
+高速検証:
+
 ```bash
 npm run check
 ```
 
-このコマンドで、JavaScript構文、ケースJSON、財務数値、UI資産、計算エンジン、PWA資産を確認します。GitHub Actionsでも同じ検証を実行します。
+実ブラウザ検証:
+
+```bash
+npm install
+npx playwright install chromium
+npm run test:e2e
+```
+
+`npm run check`では、JavaScript構文、ケースJSON、財務数値、ケーススキーマv2、技能参照、ページ解除条件、UI資産、計算エンジン、PWA資産を確認します。GitHub Actionsでは高速検証の成功後にPC・スマートフォンのブラウザ回帰を実行します。
 
 ## ケース追加
 
-1. `data/cases/` にケースJSONを追加
-2. `data/cases/index.json` にパスを追加
-3. `npm run validate -- data/cases/<file>.json` で検証
+新規ケースは`schemaVersion: 2`で作成します。
 
-教材JSONと表示ロジックを分離しているため、新しいケースは可能な限りデータ追加だけで公開できる設計です。
+1. `tests/fixtures/case-v2-minimal.json`を参考にケースJSONを作る
+2. 必要な技能を`data/skills/index.json`へ追加する
+3. `data/cases/index.json`へケース情報とパスを追加する
+4. ケース単体を検証する
+5. 全体検証とブラウザ回帰を実行する
+
+```bash
+npm run validate:case -- data/cases/<file>.json
+npm run validate:schema-v2
+npm run check
+npm run test:e2e
+```
+
+公開済みIDは学習記録と結びつくため、case・page・step・option・document・valueの各IDを安易に変更しません。
+
+## v1ケースの移行
+
+公開中のCASE 1は保存互換のため、ソースJSONをv1のまま保持し、読み込み時にv2へ正規化しています。変換結果を確認する場合は、別ファイルへ出力します。
+
+```bash
+npm run migrate:case-v2 -- \
+  data/cases/case-001-black-profit-no-cash.json \
+  --out /tmp/case-001-v2.json
+```
+
+ソースを直接置き換える`--write`は、専用ブランチで保存互換とブラウザ回帰を確認する場合に限って使用します。
 
 ## 設計資料
 
+- `docs/case-schema-v2.md`
+- `docs/case-authoring-checklist.md`
+- `docs/browser-regression.md`
 - `docs/ui-implementation-plan.md`
 - `docs/deep-ux-implementation.md`
+- `schemas/case-v2.schema.json`
