@@ -111,7 +111,7 @@ function getBasicsCourseProgress() {
 
 function getNextBasicLesson() {
   const lessons = basicsCourse?.lessons || [];
-  return lessons.find((lesson) => !getBasicLessonProgress(lesson.id).completedAt) || lessons.at(-1) || null;
+  return lessons.find((lesson) => !getBasicLessonProgress(lesson.id).completedAt) || null;
 }
 
 function getBasicReviewItems() {
