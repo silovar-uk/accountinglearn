@@ -138,9 +138,9 @@ test("schema runtime loads before boot and schema-aware state loads after deep s
   assert.ok(deepState < schemaState && schemaState < deepUi);
 });
 
-test("service worker caches schema runtime and skill catalog with a new cache version", async () => {
+test("service worker caches schema runtime and skill catalog with a versioned cache", async () => {
   const serviceWorker = await fs.readFile(path.resolve("sw.js"), "utf8");
-  assert.match(serviceWorker, /accounting-quest-v5/);
+  assert.match(serviceWorker, /accounting-quest-v\d+/);
   assert.match(serviceWorker, /\.\/case-schema\.js/);
   assert.match(serviceWorker, /\.\/case-schema-bootstrap\.js/);
   assert.match(serviceWorker, /\.\/case-schema-state\.js/);

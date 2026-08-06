@@ -13,7 +13,7 @@ const htmlAssets = [...html.matchAll(/(?:src|href)="(\.\/[^"?#]+)"/g)]
   .map((match) => normalize(match[1]))
   .filter((asset) => /\.(?:js|css|svg|png|webmanifest)$/.test(asset));
 const cachedAssets = new Set([...serviceWorker.matchAll(/"(\.\/[^"?#]+)"/g)].map((match) => normalize(match[1])));
-const requiredAssets = new Set([...htmlAssets, "index.html", "data/cases/index.json"]);
+const requiredAssets = new Set([...htmlAssets, "index.html", "data/cases/index.json", "data/basics/index.json"]);
 if (manifest.skillsPath) requiredAssets.add(normalize(manifest.skillsPath));
 for (const item of manifest.cases || []) if (item.status === "published") requiredAssets.add(normalize(item.path));
 
