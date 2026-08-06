@@ -3,12 +3,13 @@ import { test, expect } from "@playwright/test";
 const STORAGE_KEY = "accounting-quest:v1";
 const browserErrors = new WeakMap();
 
-async function completeOnboarding(page) {
+async function completeOnboarding(page, mode = "standard") {
   await page.goto("/");
   const dialog = page.getByRole("dialog", { name: "どのくらい補助を使いますか？" });
   if (await dialog.isVisible().catch(() => false)) {
-    await dialog.getByRole("button", { name: /標準/ }).click();
+    await dialog.getByRole("button", { name: mode === "beginner" ? /はじめて/ : /標準/ }).click();
     await dialog.getByRole("button", { name: "この設定で始める" }).click();
+    await expect(dialog).toBeHidden();
   }
 }
 
@@ -67,7 +68,7 @@ test("CASE 2 opens once, shows CASE 02, and stores namespaced answers", async ({
 });
 
 test("CASE 2 formula helper resolves its own financial data", async ({ page }) => {
-  await completeOnboarding(page);
+  await completeOnboarding(page, "beginner");
   await page.goto("/#case/case-002-sleeping-hit-products/3");
   await expect(page.getByRole("heading", { name: "売上より速く増えたもの" })).toBeVisible();
   await expect(page.locator('[data-step-id="c002-step-04-01"] .deep-formula')).toContainText("7,650 ÷ 22,500 × 100");
