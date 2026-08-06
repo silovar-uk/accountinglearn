@@ -1,4 +1,4 @@
-const CACHE_NAME = "accounting-quest-v3";
+const CACHE_NAME = "accounting-quest-v4";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -13,6 +13,7 @@ const APP_SHELL = [
   "./deep-4.css",
   "./app-core.js",
   "./app-lessons.js",
+  "./case-engine.js",
   "./app-actions.js",
   "./ui-foundation.js",
   "./ui-home.js",
