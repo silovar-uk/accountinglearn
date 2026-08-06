@@ -24,9 +24,9 @@ boot = async function bootWithCaseSchemaV2() {
     window.scrollTo({ top: 0, behavior: "instant" });
   });
 
-  document.addEventListener("click", handleClick);
-  document.addEventListener("input", handleInput);
-  document.addEventListener("change", handleInput);
+  document.addEventListener("click", (event) => handleClick(event));
+  document.addEventListener("input", (event) => handleInput(event));
+  document.addEventListener("change", (event) => handleInput(event));
 
   if (!location.hash) location.hash = "#home";
   render();
