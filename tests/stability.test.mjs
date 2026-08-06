@@ -57,3 +57,9 @@ test("service worker includes the case engine and uses a new cache version", asy
   assert.match(sw, /accounting-quest-v4/);
   assert.match(sw, /\.\/case-engine\.js/);
 });
+
+test("first-time learners start from the briefing before smart resume", async () => {
+  const source = await read("deep-ui-home-case.js");
+  assert.match(source, /const started = Boolean\(state\.visitedPages\[featured\.id\]\?\.length\)/);
+  assert.match(source, /const resumeIndex = started \? getSmartResumeIndex\(featured\) : 0/);
+});
