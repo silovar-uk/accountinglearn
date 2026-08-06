@@ -3,6 +3,7 @@ const FORMULA_OPERATOR_MAP = {
   "＋": "+",
   "-": "−",
   "−": "−",
+  "－": "−",
   "*": "×",
   "×": "×",
   "/": "÷",
@@ -49,7 +50,7 @@ function resolveFormulaSource(data, node) {
 }
 
 function extractFormulaOperators(template = "") {
-  return [...template.matchAll(/[＋+\-−×*÷/]/g)].map((match) => FORMULA_OPERATOR_MAP[match[0]]);
+  return [...template.matchAll(/[＋+\-−－×*÷/]/g)].map((match) => FORMULA_OPERATOR_MAP[match[0]]);
 }
 
 function evaluateFormulaParts(values, operators) {
