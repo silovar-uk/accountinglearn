@@ -33,6 +33,42 @@
         "consulting.hypothesis",
         "consulting.recommendation"
       ]
+    },
+    {
+      "id": "case-002-sleeping-hit-products",
+      "path": "./data/cases/case-002-sleeping-hit-products.json",
+      "sourceSchemaVersion": 2,
+      "contentVersion": "1.0.0",
+      "status": "published",
+      "releaseOrder": 2,
+      "metadata": {
+        "difficultyLevel": 2,
+        "estimatedMinutes": 38,
+        "format": "full-case",
+        "industry": "sports-apparel",
+        "companyStage": "growth",
+        "fictional": true,
+        "locale": "ja-JP"
+      },
+      "prerequisiteSkillIds": [
+        "accounting.accrual-basis",
+        "analysis.calculation"
+      ],
+      "skillIds": [
+        "reasoning.evidence-selection",
+        "accounting.inventory",
+        "accounting.inventory-valuation",
+        "accounting.journal-entry",
+        "statements.pl-bs-connection",
+        "analysis.variance",
+        "analysis.calculation",
+        "analysis.gross-margin",
+        "analysis.inventory-turnover",
+        "analysis.sku-profitability",
+        "analysis.working-capital",
+        "consulting.hypothesis",
+        "consulting.recommendation"
+      ]
     }
   ]
 }
