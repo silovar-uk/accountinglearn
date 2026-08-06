@@ -53,7 +53,7 @@ test("home, case library, and page map remain usable", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "案件受領" })).toBeVisible();
   await expectNoHorizontalOverflow(page);
 
-  await page.locator('[data-action="open-page-map"]').click();
+  await page.getByRole("button", { name: "ページ一覧を開く" }).click();
   const pageMap = page.getByRole("dialog", { name: "ページ一覧" });
   await expect(pageMap).toBeVisible();
   await expect(pageMap.locator('button[data-page="1"]')).toBeEnabled();
@@ -99,7 +99,7 @@ test("mobile financial values feed the calculator without layout overflow", asyn
   await page.locator('.mobile-financial-list button[data-label="売上高・当期"]').click();
   let calculator = page.getByRole("dialog", { name: "計算トレイ" });
   await expect(calculator).toBeVisible();
-  await expect(calculator.getByText("10,400", { exact: true })).toBeVisible();
+  await expect(calculator.getByLabel("選択した数値").getByText("10,400", { exact: true })).toBeVisible();
   await calculator.getByRole("button", { name: "−", exact: true }).click();
   await calculator.getByRole("button", { name: "計算トレイを閉じる" }).click();
 
