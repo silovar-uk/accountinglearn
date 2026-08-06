@@ -30,9 +30,33 @@ function requireNativeV2Fields(raw, label) {
   }
 }
 
+function validateMachineSchema(schema) {
+  if (schema.$schema !== "https://json-schema.org/draft/2020-12/schema") errors.push("case-v2.schema.json must use JSON Schema draft 2020-12");
+  if (schema.properties?.schemaVersion?.const !== 2) errors.push("case-v2.schema.json must require schemaVersion 2");
+  for (const definition of ["metadata", "pedagogy", "unlock", "hint", "assessment", "step", "page"]) {
+    if (!schema.$defs?.[definition]) errors.push(`case-v2.schema.json is missing $defs.${definition}`);
+  }
+  const required = new Set(schema.required || []);
+  for (const field of ["schemaVersion", "id", "title", "subtitle", "metadata", "pedagogy", "documents", "pages", "scoring"]) {
+    if (!required.has(field)) errors.push(`case-v2.schema.json top-level required is missing ${field}`);
+  }
+  const unlockVariants = schema.$defs?.unlock?.oneOf || [];
+  const unlockTypes = new Set(unlockVariants.map((variant) => variant.properties?.type?.const).filter(Boolean));
+  for (const type of ["always", "page-complete", "all-previous-complete", "skill-mastered", "manual"]) {
+    if (!unlockTypes.has(type)) errors.push(`case-v2.schema.json unlock does not define ${type}`);
+  }
+}
+
 const runtime = await loadCaseSchemaRuntime();
 if (manifest.schemaVersion !== 2) errors.push("case manifest must use schemaVersion 2");
 if (!manifest.skillsPath) errors.push("case manifest needs skillsPath");
+
+try {
+  const machineSchema = JSON.parse(await fs.readFile(path.resolve(process.cwd(), "schemas/case-v2.schema.json"), "utf8"));
+  validateMachineSchema(machineSchema);
+} catch (error) {
+  errors.push(`cannot read machine-readable case schema: ${error.message}`);
+}
 
 let skillCatalog = { schemaVersion: 1, skills: [] };
 try {
