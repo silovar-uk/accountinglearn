@@ -1,0 +1,221 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://silovar-uk.github.io/accountinglearn/schemas/case-v2.schema.json",
+  "title": "Accounting Quest Case Definition v2",
+  "type": "object",
+  "required": ["schemaVersion", "id", "title", "subtitle", "metadata", "pedagogy", "documents", "pages", "scoring"],
+  "properties": {
+    "schemaVersion": { "const": 2 },
+    "id": { "$ref": "#/$defs/kebabId" },
+    "title": { "type": "string", "minLength": 1 },
+    "subtitle": { "type": "string", "minLength": 1 },
+    "metadata": { "$ref": "#/$defs/metadata" },
+    "pedagogy": { "$ref": "#/$defs/pedagogy" },
+    "documents": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/document" }
+    },
+    "pages": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/page" }
+    },
+    "scoring": { "type": "object" }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "kebabId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "skillId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$"
+    },
+    "stringList": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "skillList": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/skillId" },
+      "uniqueItems": true
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["contentVersion", "status", "releaseOrder", "difficulty", "estimatedMinutes", "format", "industry", "companyStage", "fictional", "locale"],
+      "properties": {
+        "contentVersion": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+        "status": { "enum": ["draft", "reviewing", "tested", "published", "archived", "planned"] },
+        "releaseOrder": { "type": "integer", "minimum": 1 },
+        "difficulty": {
+          "type": "object",
+          "required": ["level", "label"],
+          "properties": {
+            "level": { "type": "integer", "minimum": 1, "maximum": 5 },
+            "label": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        },
+        "estimatedMinutes": { "type": "integer", "minimum": 1 },
+        "format": { "enum": ["micro-case", "short-case", "full-case", "public-company-case"] },
+        "industry": { "type": "string", "minLength": 1 },
+        "companyStage": { "type": "string", "minLength": 1 },
+        "fictional": { "type": "boolean" },
+        "locale": { "type": "string", "minLength": 2 },
+        "publishedAt": { "type": ["string", "null"], "format": "date-time" },
+        "reviewedAt": { "type": ["string", "null"], "format": "date-time" }
+      },
+      "additionalProperties": true
+    },
+    "pedagogy": {
+      "type": "object",
+      "required": ["learningObjectives", "prerequisiteSkillIds", "skillIds", "accountingTopics", "analysisMethods", "recommendedModes", "reviewStrategy"],
+      "properties": {
+        "learningObjectives": { "$ref": "#/$defs/stringList" },
+        "prerequisiteSkillIds": { "$ref": "#/$defs/skillList" },
+        "skillIds": { "$ref": "#/$defs/skillList" },
+        "accountingTopics": { "$ref": "#/$defs/stringList" },
+        "analysisMethods": { "$ref": "#/$defs/stringList" },
+        "recommendedModes": {
+          "type": "array",
+          "items": { "enum": ["beginner", "standard", "practical"] },
+          "uniqueItems": true
+        },
+        "reviewStrategy": {
+          "type": "object",
+          "required": ["type", "intervalsDays"],
+          "properties": {
+            "type": { "enum": ["spaced-retrieval", "manual", "none"] },
+            "intervalsDays": {
+              "type": "array",
+              "items": { "type": "integer", "minimum": 1 },
+              "uniqueItems": true
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "document": {
+      "type": "object",
+      "required": ["id", "type", "title"],
+      "properties": {
+        "id": { "$ref": "#/$defs/kebabId" },
+        "type": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": true
+    },
+    "unlock": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["type"],
+          "properties": { "type": { "const": "always" } },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["type", "pageId"],
+          "properties": {
+            "type": { "const": "page-complete" },
+            "pageId": { "$ref": "#/$defs/kebabId" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["type"],
+          "properties": { "type": { "const": "all-previous-complete" } },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["type", "skillId"],
+          "properties": {
+            "type": { "const": "skill-mastered" },
+            "skillId": { "$ref": "#/$defs/skillId" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["type"],
+          "properties": { "type": { "const": "manual" } },
+          "additionalProperties": true
+        }
+      ]
+    },
+    "hint": {
+      "type": "object",
+      "required": ["level", "label", "text"],
+      "properties": {
+        "level": { "type": "integer", "minimum": 1 },
+        "label": { "type": "string", "minLength": 1 },
+        "text": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": true
+    },
+    "assessment": {
+      "type": "object",
+      "required": ["mode", "maxPoints", "rubricCriteria"],
+      "properties": {
+        "mode": { "enum": ["auto", "self-review", "completion", "none"] },
+        "maxPoints": { "type": "number", "minimum": 0 },
+        "rubricCriteria": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "label", "weight"],
+            "properties": {
+              "id": { "$ref": "#/$defs/kebabId" },
+              "label": { "type": "string", "minLength": 1 },
+              "weight": { "type": "number", "minimum": 0 }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "step": {
+      "type": "object",
+      "required": ["id", "type", "instruction", "skillIds", "hints", "assessment"],
+      "properties": {
+        "id": { "$ref": "#/$defs/kebabId" },
+        "type": { "type": "string", "minLength": 1 },
+        "instruction": { "type": "string", "minLength": 1 },
+        "skillIds": { "$ref": "#/$defs/skillList" },
+        "hints": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/hint" }
+        },
+        "assessment": { "$ref": "#/$defs/assessment" }
+      },
+      "additionalProperties": true
+    },
+    "page": {
+      "type": "object",
+      "required": ["id", "order", "type", "title", "unlock", "estimatedMinutes", "skillIds"],
+      "properties": {
+        "id": { "$ref": "#/$defs/kebabId" },
+        "order": { "type": "integer", "minimum": 1 },
+        "type": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "unlock": { "$ref": "#/$defs/unlock" },
+        "estimatedMinutes": { "type": "integer", "minimum": 1 },
+        "skillIds": { "$ref": "#/$defs/skillList" },
+        "steps": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/step" }
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

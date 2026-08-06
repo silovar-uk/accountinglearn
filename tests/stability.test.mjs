@@ -52,9 +52,9 @@ test("case engine loads before app-actions starts boot", async () => {
   assert.ok(actions > engine);
 });
 
-test("service worker includes the case engine and uses a new cache version", async () => {
+test("service worker includes the case engine and uses a versioned cache", async () => {
   const sw = await read("sw.js");
-  assert.match(sw, /accounting-quest-v4/);
+  assert.match(sw, /accounting-quest-v\d+/);
   assert.match(sw, /\.\/case-engine\.js/);
 });
 

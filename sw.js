@@ -1,4 +1,4 @@
-const CACHE_NAME = "accounting-quest-v4";
+const CACHE_NAME = "accounting-quest-v5";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -11,7 +11,9 @@ const APP_SHELL = [
   "./deep-2.css",
   "./deep-3.css",
   "./deep-4.css",
+  "./case-schema.js",
   "./app-core.js",
+  "./case-schema-bootstrap.js",
   "./app-lessons.js",
   "./case-engine.js",
   "./app-actions.js",
@@ -25,6 +27,7 @@ const APP_SHELL = [
   "./ui-case-nav.js",
   "./ui-live.js",
   "./deep-state.js",
+  "./case-schema-state.js",
   "./deep-calculator.js",
   "./deep-ui-shell.js",
   "./deep-ui-home-case.js",
@@ -38,6 +41,7 @@ const APP_SHELL = [
   "./apple-touch-icon.png",
   "./site.webmanifest",
   "./data/cases/index.json",
+  "./data/skills/index.json",
   "./data/cases/case-001-black-profit-no-cash.json"
 ];
 
