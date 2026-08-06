@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "skills": [
+    {
+      "id": "reasoning.evidence-selection",
+      "title": "根拠の選択",
+      "domain": "reasoning",
+      "level": 1,
+      "description": "問いに直接関係する事実や資料を優先して選ぶ。",
+      "prerequisiteSkillIds": []
+    },
+    {
+      "id": "accounting.accrual-basis",
+      "title": "発生主義",
+      "domain": "accounting",
+      "level": 1,
+      "description": "収益・費用の計上時点と現金の入出金時点を分けて考える。",
+      "prerequisiteSkillIds": []
+    },
+    {
+      "id": "accounting.receivables",
+      "title": "売掛金",
+      "domain": "accounting",
+      "level": 1,
+      "description": "売上計上後、未回収の代金が貸借対照表と資金繰りへ与える影響を理解する。",
+      "prerequisiteSkillIds": ["accounting.accrual-basis"]
+    },
+    {
+      "id": "accounting.journal-entry",
+      "title": "仕訳",
+      "domain": "accounting",
+      "level": 1,
+      "description": "取引を借方・貸方へ分解し、勘定科目と金額を対応させる。",
+      "prerequisiteSkillIds": ["accounting.accrual-basis"]
+    },
+    {
+      "id": "statements.pl-bs-connection",
+      "title": "PLとBSの接続",
+      "domain": "financial-statements",
+      "level": 2,
+      "description": "損益計算書の利益と貸借対照表の資産・負債の動きを関連づける。",
+      "prerequisiteSkillIds": ["accounting.accrual-basis"]
+    },
+    {
+      "id": "analysis.variance",
+      "title": "前年差分析",
+      "domain": "analysis",
+      "level": 1,
+      "description": "複数期間の数値を比較し、重要な増減を見つける。",
+      "prerequisiteSkillIds": ["reasoning.evidence-selection"]
+    },
+    {
+      "id": "analysis.calculation",
+      "title": "財務計算",
+      "domain": "analysis",
+      "level": 1,
+      "description": "資料の数値と単位を確認し、式へ正しく当てはめる。",
+      "prerequisiteSkillIds": []
+    },
+    {
+      "id": "analysis.receivables-days",
+      "title": "売掛金回転期間",
+      "domain": "analysis",
+      "level": 2,
+      "description": "売掛金と売上高から回収期間を計算し、資金負担を評価する。",
+      "prerequisiteSkillIds": ["accounting.receivables", "analysis.calculation"]
+    },
+    {
+      "id": "cashflow.bridge",
+      "title": "利益から現金への橋渡し",
+      "domain": "cash-flow",
+      "level": 2,
+      "description": "利益を起点に運転資本・投資・財務活動を反映し、現金増減を説明する。",
+      "prerequisiteSkillIds": ["statements.pl-bs-connection", "analysis.variance"]
+    },
+    {
+      "id": "analysis.cash-forecast",
+      "title": "資金繰り予測",
+      "domain": "analysis",
+      "level": 2,
+      "description": "期首現金、入金、支払いから将来の現金残高と不足額を見積もる。",
+      "prerequisiteSkillIds": ["analysis.calculation", "cashflow.bridge"]
+    },
+    {
+      "id": "consulting.hypothesis",
+      "title": "仮説設定",
+      "domain": "consulting",
+      "level": 2,
+      "description": "限られた情報から優先的に確認すべき原因候補を置く。",
+      "prerequisiteSkillIds": ["reasoning.evidence-selection"]
+    },
+    {
+      "id": "consulting.recommendation",
+      "title": "経営提案",
+      "domain": "consulting",
+      "level": 2,
+      "description": "事実と原因を根拠に、短期対応と再発防止策を分けて提案する。",
+      "prerequisiteSkillIds": ["consulting.hypothesis"]
+    }
+  ]
+}
