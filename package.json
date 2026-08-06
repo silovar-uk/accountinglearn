@@ -1,6 +1,6 @@
 {
   "name": "accountinglearn",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,13 +8,14 @@
     "validate:manifest": "node scripts/validate-manifest.mjs",
     "validate:case:001": "node scripts/validate-case.mjs data/cases/case-001-black-profit-no-cash.json",
     "validate:case:002": "node scripts/validate-case.mjs data/cases/case-002-sleeping-hit-products.json",
-    "validate:case": "npm run validate:case:001 && npm run validate:case:002",
+    "validate:case:003": "node scripts/validate-case.mjs data/cases/case-003-growth-that-burns-cash.json",
+    "validate:case": "npm run validate:case:001 && npm run validate:case:002 && npm run validate:case:003",
     "validate:schema-v2": "node scripts/validate-case-v2.mjs",
     "validate:basics": "node scripts/validate-basics.mjs",
     "validate:assets": "node scripts/audit-runtime-assets.mjs",
     "validate": "npm run validate:manifest && npm run validate:case && npm run validate:schema-v2 && npm run validate:basics && npm run validate:assets",
     "migrate:case-v2": "node scripts/migrate-case-v2.mjs",
-    "check:js": "node --check case-schema.js && node --check app-core.js && node --check case-schema-bootstrap.js && node --check basics-engine.js && node --check basics-bootstrap.js && node --check app-lessons.js && node --check case-engine.js && node --check app-actions.js && node --check ui-foundation.js && node --check ui-home.js && node --check ui-cases.js && node --check ui-learning.js && node --check ui-records.js && node --check ui-case-view.js && node --check ui-case-steps.js && node --check ui-case-nav.js && node --check ui-live.js && node --check deep-state.js && node --check case-schema-state.js && node --check basics-state.js && node --check deep-calculator.js && node --check deep-ui-shell.js && node --check deep-ui-home-case.js && node --check deep-ui-steps.js && node --check deep-ui-records-layers.js && node --check deep-actions.js && node --check basics-ui.js && node --check basics-actions.js && node --check pwa.js && node --check sw.js && node --check playwright.config.mjs && node --check scripts/serve.mjs && node --check scripts/validate-manifest.mjs && node --check scripts/validate-case.mjs && node --check scripts/validate-case-v2.mjs && node --check scripts/validate-basics.mjs && node --check scripts/migrate-case-v2.mjs && node --check scripts/audit-runtime-assets.mjs && node --check tests/e2e/app.spec.mjs && node --check tests/e2e/basics.spec.mjs && node --check tests/e2e/case-002.spec.mjs && node --check tests/case-schema-v2.test.mjs && node --check tests/basics.test.mjs && node --check tests/case-002.test.mjs",
+    "check:js": "node --check case-schema.js && node --check app-core.js && node --check case-schema-bootstrap.js && node --check basics-engine.js && node --check basics-bootstrap.js && node --check app-lessons.js && node --check case-engine.js && node --check app-actions.js && node --check ui-foundation.js && node --check ui-home.js && node --check ui-cases.js && node --check ui-learning.js && node --check ui-records.js && node --check ui-case-view.js && node --check ui-case-steps.js && node --check ui-case-nav.js && node --check ui-live.js && node --check deep-state.js && node --check case-schema-state.js && node --check basics-state.js && node --check deep-calculator.js && node --check deep-ui-shell.js && node --check deep-ui-home-case.js && node --check deep-ui-steps.js && node --check deep-ui-records-layers.js && node --check deep-actions.js && node --check basics-ui.js && node --check basics-actions.js && node --check pwa.js && node --check sw.js && node --check playwright.config.mjs && node --check scripts/serve.mjs && node --check scripts/validate-manifest.mjs && node --check scripts/validate-case.mjs && node --check scripts/validate-case-v2.mjs && node --check scripts/validate-basics.mjs && node --check scripts/migrate-case-v2.mjs && node --check scripts/audit-runtime-assets.mjs && node --check tests/e2e/app.spec.mjs && node --check tests/e2e/basics.spec.mjs && node --check tests/e2e/case-002.spec.mjs && node --check tests/e2e/case-003.spec.mjs && node --check tests/case-schema-v2.test.mjs && node --check tests/basics.test.mjs && node --check tests/case-002.test.mjs && node --check tests/case-003.test.mjs",
     "test": "node --test tests/*.test.mjs",
     "test:e2e": "playwright test",
     "check": "npm run check:js && npm run validate && npm test"

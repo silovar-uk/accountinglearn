@@ -69,6 +69,46 @@
         "consulting.hypothesis",
         "consulting.recommendation"
       ]
+    },
+    {
+      "id": "case-003-growth-that-burns-cash",
+      "path": "./data/cases/case-003-growth-that-burns-cash.json",
+      "sourceSchemaVersion": 2,
+      "contentVersion": "1.0.0",
+      "status": "published",
+      "releaseOrder": 3,
+      "metadata": {
+        "difficultyLevel": 3,
+        "estimatedMinutes": 42,
+        "format": "full-case",
+        "industry": "b2b-saas",
+        "companyStage": "growth",
+        "fictional": true,
+        "locale": "ja-JP"
+      },
+      "prerequisiteSkillIds": [
+        "accounting.accrual-basis",
+        "analysis.calculation",
+        "analysis.gross-margin"
+      ],
+      "skillIds": [
+        "reasoning.evidence-selection",
+        "accounting.accrual-basis",
+        "accounting.contract-liabilities",
+        "accounting.journal-entry",
+        "statements.pl-bs-connection",
+        "analysis.variance",
+        "analysis.calculation",
+        "analysis.gross-margin",
+        "analysis.customer-acquisition-cost",
+        "analysis.customer-lifetime-value",
+        "analysis.churn-retention",
+        "analysis.unit-economics",
+        "analysis.cash-runway",
+        "cashflow.bridge",
+        "consulting.hypothesis",
+        "consulting.recommendation"
+      ]
     }
   ]
 }
