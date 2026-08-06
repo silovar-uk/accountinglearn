@@ -109,6 +109,43 @@
         "consulting.hypothesis",
         "consulting.recommendation"
       ]
+    },
+    {
+      "id": "case-004-busy-factory-vanishing-profit",
+      "path": "./data/cases/case-004-busy-factory-vanishing-profit.json",
+      "sourceSchemaVersion": 2,
+      "contentVersion": "1.0.0",
+      "status": "published",
+      "releaseOrder": 4,
+      "metadata": {
+        "difficultyLevel": 3,
+        "estimatedMinutes": 44,
+        "format": "full-case",
+        "industry": "precision-manufacturing",
+        "companyStage": "mature",
+        "fictional": true,
+        "locale": "ja-JP"
+      },
+      "prerequisiteSkillIds": [
+        "analysis.calculation",
+        "analysis.gross-margin",
+        "accounting.journal-entry"
+      ],
+      "skillIds": [
+        "reasoning.evidence-selection",
+        "accounting.manufacturing-overhead",
+        "accounting.journal-entry",
+        "analysis.variance",
+        "analysis.calculation",
+        "analysis.gross-margin",
+        "analysis.absorption-costing",
+        "analysis.overhead-variance",
+        "analysis.contribution-margin",
+        "analysis.bottleneck-throughput",
+        "analysis.product-mix",
+        "consulting.hypothesis",
+        "consulting.recommendation"
+      ]
     }
   ]
 }
