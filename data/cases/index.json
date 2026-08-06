@@ -1,11 +1,38 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
+  "skillsPath": "./data/skills/index.json",
   "cases": [
     {
       "id": "case-001-black-profit-no-cash",
       "path": "./data/cases/case-001-black-profit-no-cash.json",
+      "sourceSchemaVersion": 1,
+      "contentVersion": "1.0.0",
       "status": "published",
-      "releaseOrder": 1
+      "releaseOrder": 1,
+      "metadata": {
+        "difficultyLevel": 1,
+        "estimatedMinutes": 30,
+        "format": "full-case",
+        "industry": "event-production",
+        "companyStage": "growth",
+        "fictional": true,
+        "locale": "ja-JP"
+      },
+      "prerequisiteSkillIds": [],
+      "skillIds": [
+        "reasoning.evidence-selection",
+        "accounting.accrual-basis",
+        "accounting.receivables",
+        "accounting.journal-entry",
+        "statements.pl-bs-connection",
+        "analysis.variance",
+        "analysis.calculation",
+        "analysis.receivables-days",
+        "cashflow.bridge",
+        "analysis.cash-forecast",
+        "consulting.hypothesis",
+        "consulting.recommendation"
+      ]
     }
   ]
 }
