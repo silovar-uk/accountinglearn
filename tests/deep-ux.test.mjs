@@ -25,8 +25,8 @@ test("manifest provides installable PNG icons", async () => {
 
 test("service worker caches the app shell and case content", async () => {
   const sw = await read("sw.js");
-  assert.match(sw, /accounting-quest-v3/);
-  for (const asset of ["deep-state.js", "deep-calculator.js", "deep-ui-shell.js", "deep-ui-home-case.js", "deep-ui-steps.js", "deep-ui-records-layers.js", "deep-actions.js"]) assert.match(sw, new RegExp(asset.replace(".", "\\.")));
+  assert.match(sw, /accounting-quest-v\d+/);
+  for (const asset of ["case-engine.js", "deep-state.js", "deep-calculator.js", "deep-ui-shell.js", "deep-ui-home-case.js", "deep-ui-steps.js", "deep-ui-records-layers.js", "deep-actions.js"]) assert.match(sw, new RegExp(asset.replace(".", "\\.")));
   assert.match(sw, /case-001-black-profit-no-cash\.json/);
   assert.match(sw, /self\.clients\.claim/);
 });
