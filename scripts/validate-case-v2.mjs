@@ -69,6 +69,7 @@ const skillValidation = runtime.validateSkillCatalog(skillCatalog);
 errors.push(...skillValidation.errors);
 warnings.push(...skillValidation.warnings);
 const skillIds = new Set((skillCatalog.skills || []).map((skill) => skill.id));
+const globalStepOwners = new Map();
 let normalizedCount = 0;
 let nativeCount = 0;
 
@@ -115,6 +116,12 @@ for (const entry of manifest.cases || []) {
       if (!declaredSkills.has(skillId)) errors.push(`${label}.${page.id} uses skill not declared by the case: ${skillId}`);
     }
     for (const step of page.steps || []) {
+      const existingOwner = globalStepOwners.get(step.id);
+      if (existingOwner && existingOwner !== label) {
+        errors.push(`duplicate step id across cases: ${step.id} (${existingOwner}, ${label})`);
+      } else {
+        globalStepOwners.set(step.id, label);
+      }
       if (Number(step.assessment?.maxPoints || 0) !== Number(step.scoring?.maxPoints || 0) && step.assessment?.mode === "auto") {
         errors.push(`${label}.${step.id} assessment maxPoints does not match scoring.maxPoints`);
       }
@@ -155,4 +162,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`OK: case schema v2 / ${normalizedCount} published definitions normalized / ${nativeCount} native v2 fixture(s) / ${skillIds.size} skills`);
+console.log(`OK: case schema v2 / ${normalizedCount} published definitions normalized / ${nativeCount} native v2 fixture(s) / ${skillIds.size} skills / ${globalStepOwners.size} globally unique steps`);
