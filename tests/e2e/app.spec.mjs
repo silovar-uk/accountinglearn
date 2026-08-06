@@ -9,6 +9,7 @@ async function completeOnboarding(page) {
   if (await dialog.isVisible().catch(() => false)) {
     await dialog.getByRole("button", { name: /標準/ }).click();
     await dialog.getByRole("button", { name: "この設定で始める" }).click();
+    await expect(dialog).toBeHidden();
   }
   await expect(page.getByRole("heading", { name: "数字を、経営の言葉に変える。" })).toBeVisible();
 }
