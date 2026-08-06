@@ -31,7 +31,8 @@ test("a foundation lesson completes, persists, and updates skill mastery", async
   await expect(page.getByRole("heading", { name: "ケースにつながる簿記基礎" })).toBeVisible();
 
   await page.locator('.basics-lesson-card [data-action="basics-start"]').first().click();
-  await expect(page.getByRole("heading", { name: "売上と入金は、同じ日ではない" })).toBeVisible();
+  await expect(page).toHaveURL(/#basics\/revenue-and-cash\/0$/);
+  await expect(page.locator(".basics-intro-card").getByRole("heading", { name: "売上と入金は、同じ日ではない", level: 1 })).toBeVisible();
   await page.getByRole("button", { name: "問題へ進む" }).click();
 
   await page.getByRole("button", { name: "6月30日", exact: true }).click();
@@ -52,8 +53,9 @@ test("a foundation lesson completes, persists, and updates skill mastery", async
   await page.getByRole("button", { name: "答えを確認" }).click();
   await page.getByRole("button", { name: "次へ" }).click();
 
-  await expect(page.getByText("100%", { exact: true })).toBeVisible();
+  await expect(page.locator(".basics-summary-score").getByText("100%", { exact: true })).toBeVisible();
   await page.getByRole("button", { name: "単元を完了" }).click();
+  await expect(page).toHaveURL(/#basics$/);
   await expect(page.getByRole("heading", { name: "ケースにつながる簿記基礎" })).toBeVisible();
 
   const stored = await page.evaluate((key) => JSON.parse(localStorage.getItem(key)), STORAGE_KEY);
