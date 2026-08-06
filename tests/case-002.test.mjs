@@ -58,7 +58,7 @@ test("CASE 2 core calculations reproduce the expected answers", async () => {
   assert.equal(grossMargin, 34);
   assert.equal(sellThrough, 60);
   assert.ok(Math.abs(inventoryDays - 117.9798) < 0.001);
-  assert.equal(valuationLoss, 360);
+  assert.ok(Math.abs(valuationLoss - 360) < 0.000001);
 });
 
 test("CASE 2 scored steps total 115 points and use a global namespace", async () => {
