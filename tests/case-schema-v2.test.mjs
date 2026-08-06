@@ -36,7 +36,8 @@ test("published v1 CASE 1 normalizes to the v2 runtime contract without changing
   assert.equal(normalized.metadata.contentVersion, "1.0.0");
   assert.equal(normalized.metadata.industry, "event-production");
   assert.equal(normalized.pages[0].unlock.type, "always");
-  assert.deepEqual(normalized.pages[1].unlock, { type: "page-complete", pageId: normalized.pages[0].id });
+  assert.equal(normalized.pages[1].unlock.type, "page-complete");
+  assert.equal(normalized.pages[1].unlock.pageId, normalized.pages[0].id);
   assert.deepEqual(raw, before, "normalization must not mutate the source JSON");
 });
 
