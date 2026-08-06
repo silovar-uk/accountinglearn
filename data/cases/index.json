@@ -2,9 +2,10 @@
   "schemaVersion": 1,
   "cases": [
     {
-      "id": "case-001",
+      "id": "case-001-black-profit-no-cash",
       "path": "./data/cases/case-001-black-profit-no-cash.json",
-      "status": "published"
+      "status": "published",
+      "releaseOrder": 1
     }
   ]
 }
