@@ -140,9 +140,17 @@ function gradeStep(step, value) {
 
   if (step.type === "multipleChoice" && step.preferredOptionIds) {
     const selected = value || [];
-    const score = Math.min(maxScore, selected.reduce((total, id) => total + (step.preferredOptionIds.includes(id) ? 5 : step.acceptableAlternativeIds?.includes(id) ? 3 : 0), 0));
+    const preferredCount = Math.max(1, step.preferredOptionIds.length);
+    const preferredPoints = maxScore / preferredCount;
+    const acceptablePoints = preferredPoints * 0.6;
+    const rawScore = selected.reduce((total, id) => {
+      if (step.preferredOptionIds.includes(id)) return total + preferredPoints;
+      if (step.acceptableAlternativeIds?.includes(id)) return total + acceptablePoints;
+      return total;
+    }, 0);
+    const score = Math.min(maxScore, Math.round(rawScore * 10) / 10);
     const hasPoor = selected.some((id) => step.options.find((option) => option.id === id)?.category === "poor");
-    const correct = score >= 13 && !hasPoor;
+    const correct = score >= maxScore * 0.85 && !hasPoor;
     const feedback = selected.map((id) => step.feedbackBySelection[id]).filter(Boolean).join(" ") || "施策を選んでください。";
     return { correct, score, maxScore, feedback };
   }
