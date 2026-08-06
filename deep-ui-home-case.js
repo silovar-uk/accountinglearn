@@ -1,8 +1,8 @@
 renderHome = function renderDeepHome() {
   const featured = catalog[0].data;
-  const resumeIndex = getSmartResumeIndex(featured);
-  const completion = getCaseCompletion(featured);
   const started = Boolean(state.visitedPages[featured.id]?.length);
+  const resumeIndex = started ? getSmartResumeIndex(featured) : 0;
+  const completion = getCaseCompletion(featured);
   const streak = getLearningStreak();
   const today = getTodayCompletedSteps();
   const goal = Number(state.settings.dailyGoal || 1);
