@@ -37,7 +37,7 @@ test("a foundation lesson completes, persists, and updates skill mastery", async
 
   await page.getByRole("button", { name: "6月30日", exact: true }).click();
   await page.getByRole("button", { name: "答えを確認" }).click();
-  await expect(page.getByText("正解です", { exact: true })).toBeVisible();
+  await expect(page.locator(".basics-question-card .feedback strong")).toHaveText("正解です");
   await page.getByRole("button", { name: "次へ" }).click();
 
   await page.getByLabel("回答（万円）").fill("30");
