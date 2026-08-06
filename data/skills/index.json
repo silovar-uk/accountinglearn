@@ -1,213 +1,37 @@
 {
   "schemaVersion": 1,
   "skills": [
-    {
-      "id": "reasoning.evidence-selection",
-      "title": "根拠の選択",
-      "domain": "reasoning",
-      "level": 1,
-      "description": "問いに直接関係する事実や資料を優先して選ぶ。",
-      "prerequisiteSkillIds": []
-    },
-    {
-      "id": "accounting.accrual-basis",
-      "title": "発生主義",
-      "domain": "accounting",
-      "level": 1,
-      "description": "収益・費用の計上時点と現金の入出金時点を分けて考える。",
-      "prerequisiteSkillIds": []
-    },
-    {
-      "id": "accounting.receivables",
-      "title": "売掛金",
-      "domain": "accounting",
-      "level": 1,
-      "description": "売上計上後、未回収の代金が貸借対照表と資金繰りへ与える影響を理解する。",
-      "prerequisiteSkillIds": ["accounting.accrual-basis"]
-    },
-    {
-      "id": "accounting.advance-receipts",
-      "title": "前受金",
-      "domain": "accounting",
-      "level": 1,
-      "description": "サービス提供前に受け取った代金を負債として記録し、提供時に売上へ振り替える。",
-      "prerequisiteSkillIds": ["accounting.accrual-basis"]
-    },
-    {
-      "id": "accounting.contract-liabilities",
-      "title": "契約負債",
-      "domain": "accounting",
-      "level": 2,
-      "description": "サービス提供前の一括入金を契約負債として記録し、履行に応じて売上へ振り替える。",
-      "prerequisiteSkillIds": ["accounting.accrual-basis"]
-    },
-    {
-      "id": "accounting.expense-payment-timing",
-      "title": "費用と支払いの時間差",
-      "domain": "accounting",
-      "level": 1,
-      "description": "費用の計上時点と支払時点を分け、未払い・前払いの影響を理解する。",
-      "prerequisiteSkillIds": ["accounting.accrual-basis"]
-    },
-    {
-      "id": "accounting.inventory",
-      "title": "棚卸資産",
-      "domain": "accounting",
-      "level": 1,
-      "description": "販売前の商品を資産として捉え、仕入・売上原価・期末在庫の関係を理解する。",
-      "prerequisiteSkillIds": ["accounting.accrual-basis"]
-    },
-    {
-      "id": "accounting.journal-entry",
-      "title": "仕訳",
-      "domain": "accounting",
-      "level": 1,
-      "description": "取引を借方・貸方へ分解し、勘定科目と金額を対応させる。",
-      "prerequisiteSkillIds": ["accounting.accrual-basis"]
-    },
-    {
-      "id": "accounting.inventory-valuation",
-      "title": "棚卸資産の評価",
-      "domain": "accounting",
-      "level": 2,
-      "description": "取得原価と正味売却価額を比較し、回収可能性が低下した在庫の評価損を判断する。",
-      "prerequisiteSkillIds": ["accounting.inventory", "accounting.journal-entry"]
-    },
-    {
-      "id": "statements.pl-bs-connection",
-      "title": "PLとBSの接続",
-      "domain": "financial-statements",
-      "level": 2,
-      "description": "損益計算書の利益と貸借対照表の資産・負債の動きを関連づける。",
-      "prerequisiteSkillIds": ["accounting.accrual-basis"]
-    },
-    {
-      "id": "analysis.variance",
-      "title": "前年差分析",
-      "domain": "analysis",
-      "level": 1,
-      "description": "複数期間の数値を比較し、重要な増減を見つける。",
-      "prerequisiteSkillIds": ["reasoning.evidence-selection"]
-    },
-    {
-      "id": "analysis.calculation",
-      "title": "財務計算",
-      "domain": "analysis",
-      "level": 1,
-      "description": "資料の数値と単位を確認し、式へ正しく当てはめる。",
-      "prerequisiteSkillIds": []
-    },
-    {
-      "id": "analysis.gross-margin",
-      "title": "粗利益率",
-      "domain": "analysis",
-      "level": 1,
-      "description": "売上高と売上総利益から粗利益率を計算し、価格・原価・商品構成の変化を評価する。",
-      "prerequisiteSkillIds": ["analysis.calculation", "reasoning.evidence-selection"]
-    },
-    {
-      "id": "analysis.receivables-days",
-      "title": "売掛金回転期間",
-      "domain": "analysis",
-      "level": 2,
-      "description": "売掛金と売上高から回収期間を計算し、資金負担を評価する。",
-      "prerequisiteSkillIds": ["accounting.receivables", "analysis.calculation"]
-    },
-    {
-      "id": "analysis.inventory-turnover",
-      "title": "在庫回転",
-      "domain": "analysis",
-      "level": 2,
-      "description": "棚卸資産と売上原価、販売数量と生産数量から、在庫回転日数や消化率を評価する。",
-      "prerequisiteSkillIds": ["accounting.inventory", "analysis.calculation"]
-    },
-    {
-      "id": "analysis.sku-profitability",
-      "title": "SKU別採算",
-      "domain": "analysis",
-      "level": 2,
-      "description": "商品別の売上高、粗利益率、値引率、在庫月数を比較し、利益を生む商品と滞留商品を分ける。",
-      "prerequisiteSkillIds": ["analysis.gross-margin", "analysis.variance"]
-    },
-    {
-      "id": "analysis.customer-acquisition-cost",
-      "title": "顧客獲得コスト",
-      "domain": "analysis",
-      "level": 2,
-      "description": "顧客獲得に使った費用を新規顧客数で割り、1社を獲得するための費用を計算する。",
-      "prerequisiteSkillIds": ["analysis.calculation", "reasoning.evidence-selection"]
-    },
-    {
-      "id": "analysis.churn-retention",
-      "title": "解約と継続",
-      "domain": "analysis",
-      "level": 2,
-      "description": "解約率と継続率から、顧客がサービスを利用し続ける期間と粗利益回収への影響を評価する。",
-      "prerequisiteSkillIds": ["analysis.calculation"]
-    },
-    {
-      "id": "analysis.customer-lifetime-value",
-      "title": "顧客生涯価値",
-      "domain": "analysis",
-      "level": 3,
-      "description": "顧客単価・粗利率・解約率から、1顧客から得られる将来粗利益の簡易値を計算する。",
-      "prerequisiteSkillIds": ["analysis.gross-margin", "analysis.churn-retention"]
-    },
-    {
-      "id": "analysis.unit-economics",
-      "title": "ユニットエコノミクス",
-      "domain": "analysis",
-      "level": 3,
-      "description": "CACとLTV、解約率、回収期間を顧客層別に比較し、顧客獲得の採算性を評価する。",
-      "prerequisiteSkillIds": ["analysis.customer-acquisition-cost", "analysis.customer-lifetime-value"]
-    },
-    {
-      "id": "cashflow.bridge",
-      "title": "利益から現金への橋渡し",
-      "domain": "cash-flow",
-      "level": 2,
-      "description": "利益を起点に運転資本・投資・財務活動を反映し、現金増減を説明する。",
-      "prerequisiteSkillIds": ["statements.pl-bs-connection", "analysis.variance"]
-    },
-    {
-      "id": "analysis.cash-forecast",
-      "title": "資金繰り予測",
-      "domain": "analysis",
-      "level": 2,
-      "description": "期首現金、入金、支払いから将来の現金残高と不足額を見積もる。",
-      "prerequisiteSkillIds": ["analysis.calculation", "cashflow.bridge"]
-    },
-    {
-      "id": "analysis.cash-runway",
-      "title": "キャッシュランウェイ",
-      "domain": "analysis",
-      "level": 3,
-      "description": "現預金を月間ネットバーンで割り、現在の支出構造を続けられる期間を見積もる。",
-      "prerequisiteSkillIds": ["analysis.calculation", "cashflow.bridge"]
-    },
-    {
-      "id": "analysis.working-capital",
-      "title": "運転資本",
-      "domain": "analysis",
-      "level": 2,
-      "description": "売掛金・在庫・買掛金から日常取引に固定される資金を捉え、成長時の資金需要を評価する。",
-      "prerequisiteSkillIds": ["accounting.receivables", "accounting.expense-payment-timing", "analysis.calculation"]
-    },
-    {
-      "id": "consulting.hypothesis",
-      "title": "仮説設定",
-      "domain": "consulting",
-      "level": 2,
-      "description": "限られた情報から優先的に確認すべき原因候補を置く。",
-      "prerequisiteSkillIds": ["reasoning.evidence-selection"]
-    },
-    {
-      "id": "consulting.recommendation",
-      "title": "経営提案",
-      "domain": "consulting",
-      "level": 2,
-      "description": "事実と原因を根拠に、短期対応と再発防止策を分けて提案する。",
-      "prerequisiteSkillIds": ["consulting.hypothesis"]
-    }
+    {"id":"reasoning.evidence-selection","title":"根拠の選択","domain":"reasoning","level":1,"description":"問いに直接関係する事実や資料を優先して選ぶ。","prerequisiteSkillIds":[]},
+    {"id":"accounting.accrual-basis","title":"発生主義","domain":"accounting","level":1,"description":"収益・費用の計上時点と現金の入出金時点を分けて考える。","prerequisiteSkillIds":[]},
+    {"id":"accounting.receivables","title":"売掛金","domain":"accounting","level":1,"description":"売上計上後、未回収の代金が貸借対照表と資金繰りへ与える影響を理解する。","prerequisiteSkillIds":["accounting.accrual-basis"]},
+    {"id":"accounting.advance-receipts","title":"前受金","domain":"accounting","level":1,"description":"サービス提供前に受け取った代金を負債として記録し、提供時に売上へ振り替える。","prerequisiteSkillIds":["accounting.accrual-basis"]},
+    {"id":"accounting.contract-liabilities","title":"契約負債","domain":"accounting","level":2,"description":"サービス提供前の一括入金を契約負債として記録し、履行に応じて売上へ振り替える。","prerequisiteSkillIds":["accounting.accrual-basis"]},
+    {"id":"accounting.expense-payment-timing","title":"費用と支払いの時間差","domain":"accounting","level":1,"description":"費用の計上時点と支払時点を分け、未払い・前払いの影響を理解する。","prerequisiteSkillIds":["accounting.accrual-basis"]},
+    {"id":"accounting.inventory","title":"棚卸資産","domain":"accounting","level":1,"description":"販売前の商品を資産として捉え、仕入・売上原価・期末在庫の関係を理解する。","prerequisiteSkillIds":["accounting.accrual-basis"]},
+    {"id":"accounting.journal-entry","title":"仕訳","domain":"accounting","level":1,"description":"取引を借方・貸方へ分解し、勘定科目と金額を対応させる。","prerequisiteSkillIds":["accounting.accrual-basis"]},
+    {"id":"accounting.inventory-valuation","title":"棚卸資産の評価","domain":"accounting","level":2,"description":"取得原価と正味売却価額を比較し、回収可能性が低下した在庫の評価損を判断する。","prerequisiteSkillIds":["accounting.inventory","accounting.journal-entry"]},
+    {"id":"accounting.manufacturing-overhead","title":"製造間接費","domain":"accounting","level":2,"description":"直接材料費・直接労務費以外の製造原価を集計し、合理的な基準で製品へ配賦する。","prerequisiteSkillIds":["accounting.journal-entry","accounting.accrual-basis"]},
+    {"id":"statements.pl-bs-connection","title":"PLとBSの接続","domain":"financial-statements","level":2,"description":"損益計算書の利益と貸借対照表の資産・負債の動きを関連づける。","prerequisiteSkillIds":["accounting.accrual-basis"]},
+    {"id":"analysis.variance","title":"前年差分析","domain":"analysis","level":1,"description":"複数期間の数値を比較し、重要な増減を見つける。","prerequisiteSkillIds":["reasoning.evidence-selection"]},
+    {"id":"analysis.calculation","title":"財務計算","domain":"analysis","level":1,"description":"資料の数値と単位を確認し、式へ正しく当てはめる。","prerequisiteSkillIds":[]},
+    {"id":"analysis.gross-margin","title":"粗利益率","domain":"analysis","level":1,"description":"売上高と売上総利益から粗利益率を計算し、価格・原価・商品構成の変化を評価する。","prerequisiteSkillIds":["analysis.calculation","reasoning.evidence-selection"]},
+    {"id":"analysis.receivables-days","title":"売掛金回転期間","domain":"analysis","level":2,"description":"売掛金と売上高から回収期間を計算し、資金負担を評価する。","prerequisiteSkillIds":["accounting.receivables","analysis.calculation"]},
+    {"id":"analysis.inventory-turnover","title":"在庫回転","domain":"analysis","level":2,"description":"棚卸資産と売上原価、販売数量と生産数量から、在庫回転日数や消化率を評価する。","prerequisiteSkillIds":["accounting.inventory","analysis.calculation"]},
+    {"id":"analysis.sku-profitability","title":"SKU別採算","domain":"analysis","level":2,"description":"商品別の売上高、粗利益率、値引率、在庫月数を比較し、利益を生む商品と滞留商品を分ける。","prerequisiteSkillIds":["analysis.gross-margin","analysis.variance"]},
+    {"id":"analysis.absorption-costing","title":"全部原価計算","domain":"analysis","level":2,"description":"変動製造原価と固定製造間接費を製品へ配賦し、製品別の全部原価と会計利益を計算する。","prerequisiteSkillIds":["accounting.manufacturing-overhead","analysis.calculation"]},
+    {"id":"analysis.overhead-variance","title":"製造間接費差異","domain":"analysis","level":3,"description":"製造間接費の実際額・予算・配賦額を比較し、予算差異と操業度差異へ分解する。","prerequisiteSkillIds":["analysis.absorption-costing","analysis.variance"]},
+    {"id":"analysis.contribution-margin","title":"限界利益","domain":"analysis","level":2,"description":"売上高から変動費を差し引き、固定費回収と短期意思決定に使える限界利益を計算する。","prerequisiteSkillIds":["analysis.calculation","analysis.gross-margin"]},
+    {"id":"analysis.bottleneck-throughput","title":"制約時間当たり採算","domain":"analysis","level":3,"description":"限界利益をボトルネック工程の使用時間で割り、希少な生産能力から得られる利益を比較する。","prerequisiteSkillIds":["analysis.contribution-margin"]},
+    {"id":"analysis.product-mix","title":"製品構成","domain":"analysis","level":3,"description":"需要上限と制約能力の中で、限界利益を最大化する製品・受注の組み合わせを判断する。","prerequisiteSkillIds":["analysis.bottleneck-throughput"]},
+    {"id":"analysis.customer-acquisition-cost","title":"顧客獲得コスト","domain":"analysis","level":2,"description":"顧客獲得に使った費用を新規顧客数で割り、1社を獲得するための費用を計算する。","prerequisiteSkillIds":["analysis.calculation","reasoning.evidence-selection"]},
+    {"id":"analysis.churn-retention","title":"解約と継続","domain":"analysis","level":2,"description":"解約率と継続率から、顧客がサービスを利用し続ける期間と粗利益回収への影響を評価する。","prerequisiteSkillIds":["analysis.calculation"]},
+    {"id":"analysis.customer-lifetime-value","title":"顧客生涯価値","domain":"analysis","level":3,"description":"顧客単価・粗利率・解約率から、1顧客から得られる将来粗利益の簡易値を計算する。","prerequisiteSkillIds":["analysis.gross-margin","analysis.churn-retention"]},
+    {"id":"analysis.unit-economics","title":"ユニットエコノミクス","domain":"analysis","level":3,"description":"CACとLTV、解約率、回収期間を顧客層別に比較し、顧客獲得の採算性を評価する。","prerequisiteSkillIds":["analysis.customer-acquisition-cost","analysis.customer-lifetime-value"]},
+    {"id":"cashflow.bridge","title":"利益から現金への橋渡し","domain":"cash-flow","level":2,"description":"利益を起点に運転資本・投資・財務活動を反映し、現金増減を説明する。","prerequisiteSkillIds":["statements.pl-bs-connection","analysis.variance"]},
+    {"id":"analysis.cash-forecast","title":"資金繰り予測","domain":"analysis","level":2,"description":"期首現金、入金、支払いから将来の現金残高と不足額を見積もる。","prerequisiteSkillIds":["analysis.calculation","cashflow.bridge"]},
+    {"id":"analysis.cash-runway","title":"キャッシュランウェイ","domain":"analysis","level":3,"description":"現預金を月間ネットバーンで割り、現在の支出構造を続けられる期間を見積もる。","prerequisiteSkillIds":["analysis.calculation","cashflow.bridge"]},
+    {"id":"analysis.working-capital","title":"運転資本","domain":"analysis","level":2,"description":"売掛金・在庫・買掛金から日常取引に固定される資金を捉え、成長時の資金需要を評価する。","prerequisiteSkillIds":["accounting.receivables","accounting.expense-payment-timing","analysis.calculation"]},
+    {"id":"consulting.hypothesis","title":"仮説設定","domain":"consulting","level":2,"description":"限られた情報から優先的に確認すべき原因候補を置く。","prerequisiteSkillIds":["reasoning.evidence-selection"]},
+    {"id":"consulting.recommendation","title":"経営提案","domain":"consulting","level":2,"description":"事実と原因を根拠に、短期対応と再発防止策を分けて提案する。","prerequisiteSkillIds":["consulting.hypothesis"]}
   ]
 }
