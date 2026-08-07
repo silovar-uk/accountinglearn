@@ -146,6 +146,41 @@
         "consulting.hypothesis",
         "consulting.recommendation"
       ]
+    },
+    {
+      "id": "case-005-restaurant-exit-decision",
+      "path": "./data/cases/case-005-restaurant-exit-decision.json",
+      "sourceSchemaVersion": 2,
+      "contentVersion": "1.0.0",
+      "status": "published",
+      "releaseOrder": 5,
+      "metadata": {
+        "difficultyLevel": 3,
+        "estimatedMinutes": 46,
+        "format": "full-case",
+        "industry": "multi-site-restaurant",
+        "companyStage": "mature",
+        "fictional": true,
+        "locale": "ja-JP"
+      },
+      "prerequisiteSkillIds": [
+        "analysis.calculation",
+        "analysis.contribution-margin"
+      ],
+      "skillIds": [
+        "reasoning.evidence-selection",
+        "accounting.relevant-costs",
+        "accounting.journal-entry",
+        "analysis.variance",
+        "analysis.calculation",
+        "analysis.contribution-margin",
+        "analysis.avoidable-fixed-cost",
+        "analysis.sunk-cost",
+        "analysis.exit-decision",
+        "analysis.scenario-comparison",
+        "consulting.hypothesis",
+        "consulting.recommendation"
+      ]
     }
   ]
 }

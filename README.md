@@ -8,11 +8,13 @@
 - CASE 2「倉庫に眠るヒット商品」全8ページ
 - CASE 3「売上が伸びるほど苦しくなる会社」全8ページ
 - CASE 4「工場は忙しいのに、利益が消えた」全8ページ
+- CASE 5「満席の店から撤退すべきか」全8ページ
 - CASE 1へ接続する基礎簿記6単元・24問
 - 売上と入金、売掛金、前受金、費用と支払い、キャッシュフロー、運転資本
 - 在庫、粗利益率、消化率、在庫回転日数、SKU別採算、商品評価損
 - 契約負債、CAC、LTV、解約率、回収期間、ユニットエコノミクス、キャッシュランウェイ
 - 製造間接費、全部原価計算、操業度差異、限界利益、制約時間当たり採算、製品構成
+- 関連原価、回避可能固定費、埋没原価、撤退差額、代替投資、シナリオ比較
 - JSONからケース・基礎教材・資料・設問を描画
 - ケーススキーマv2とv1互換のランタイム正規化
 - 共通技能カタログとケース・ページ・設問・基礎単元の技能接続
@@ -166,6 +168,7 @@ npm run migrate:case-v2 -- \
 - `docs/case-002-inventory-margin.md`
 - `docs/case-003-saas-unit-economics.md`
 - `docs/case-004-manufacturing-costing.md`
+- `docs/case-005-restaurant-exit-decision.md`
 - `docs/case-schema-v2.md`
 - `docs/case-authoring-checklist.md`
 - `docs/browser-regression.md`
