@@ -123,6 +123,9 @@ test("the cached app shell can reopen while offline", async ({ page, context }, 
   expect(workerUrl).toMatch(/\/sw\.js$/);
 
   await page.reload();
+  await page.waitForFunction(() => Boolean(navigator.serviceWorker.controller));
+  await expect(page.getByRole("heading", { name: "数字を、経営の言葉に変える。" })).toBeVisible();
+  await page.waitForLoadState("networkidle");
   await context.setOffline(true);
   await page.reload({ waitUntil: "domcontentloaded" });
   await expect(page.getByRole("heading", { name: "数字を、経営の言葉に変える。" })).toBeVisible();
